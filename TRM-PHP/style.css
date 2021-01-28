@@ -1,0 +1,20 @@
+.login {
+	width: 400px;
+	background-color: #eee;
+	padding: 30px;
+	border-style: solid;
+	border-color: #999;
+	border-width: 2px;
+	border-radius: 2%;
+}
+
+.table-header {
+	border-bottom: 2px solid black;
+}
+
+html,
+body {
+	background-color: #fefefe;
+	height: 100%;
+	margin: 0;
+}
