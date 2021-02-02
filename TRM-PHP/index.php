@@ -25,7 +25,6 @@
 
 		for ($i = 0; $i < count($tables); $i++) {
 			$sql = 'SELECT * FROM ' . $tables[$i] . ' WHERE BINARY username=\'' . $_POST["usr"] . '\'  AND BINARY password=\'' . $_POST["pwd"] . '\';';
-			echo $sql . "<br>";
 			$res = mysqli_query($conn, $sql);
 			if (mysqli_num_rows($res) > 0) {
 				header('Location: Success.php');
