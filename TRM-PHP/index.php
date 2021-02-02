@@ -22,9 +22,10 @@
 	}
 
 	if (isset($_POST["usr"]) and isset($_POST["usr"])) {
+
 		for ($i = 0; $i < count($tables); $i++) {
-			$sql = 'SELECT * FROM ' . $tables[$i] . ' WHERE `username`=\'' . $_POST["usr"] . '\'  AND `password`=\'' . $_POST["pwd"] . '\';';
-			echo $sql;
+			$sql = 'SELECT * FROM ' . $tables[$i] . ' WHERE BINARY username=\'' . $_POST["usr"] . '\'  AND BINARY password=\'' . $_POST["pwd"] . '\';';
+			echo $sql . "<br>";
 			$res = mysqli_query($conn, $sql);
 			if (mysqli_num_rows($res) > 0) {
 				header('Location: Success.php');
@@ -39,7 +40,7 @@
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>Inserisci le credenziali</h4>
 			<br />
-			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" , method="POST">
+			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>", method="POST">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="floatingInput" placeholder="user.name" name="usr" />
 					<label for="floatingInput">Username</label>
