@@ -1,4 +1,4 @@
-# Vectoryx.github.io: Progetto TRM ( Test a Risposta Multipla)
+# Progetto TRM ( Test a Risposta Multipla)
 
 **Nome Azienda**: AzureBits
 
