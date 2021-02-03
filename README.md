@@ -1,3 +1,5 @@
+---
+
 # Vectoryx.github.io: Progetto TRM ( Test a Risposta Multipla)
 
 **Nome Azienda**: AzureBits
@@ -10,27 +12,11 @@ Questo progetto fu chiesto dal Prof. Voltolina come esercizio di lungo termine.
 
 Il progetto in se serve a creare e gestire Test a Risposta Multipla utilizzando le nostre conoscenze sui database e il linguaggio SQL.
 
-Lo rendiamo possibile collegando un programma Java grazie al connettore Java di MySQL.
+Inizialmente abbiamo utilizzato Java e un connettore Java per lavorare, ma con il tempo e sotto richiesta del prof Voltolina, abbiamo iniziato ad utilizzare PHP
 
 ---
 
-La **Classe Utente** è una classe generale che viene descritta da diversi attributi.
-
-**Classe Utente**:
-
-**User name** (L'userName viene descritto da un unico valore Nome.Cognome)
-
-**Privilegio**  (Questo descrive il potere che ha l'Utente. Ci sono tre livelli: Admin, Professore, Studente)
-
-**Classe** (Questo è l'anno in cui si trovano gli utenti. Esso è un numero)
-
-**Sezione** (Questa è la sezione in cui gli utenti si trovano. Essa è una lettera)
-
-**Password** (Questa è la password che serve agli utenti per accedere ai loro rispettivi account)
-
----
-
-Prossimamente potete vedere che cosa possono fare i diversi privilegi
+I privilegi sono i seguenti:
 
 L' Admin può
 
@@ -50,9 +36,23 @@ Consultare i risultati
 
 ---
 
-La **Classe Domanda** viene descritto da:
+**Gestione Utente**:
 
-Questito della domanda (Questo è il testo della domanda stesso. Ovviamente serve per contenerlo all'interno di una variabile)
+**User name** (L'userName viene descritto da un unico valore Nome.Cognome)
+
+**Privilegio**  (Questo descrive il potere che ha l'Utente. Ci sono tre livelli: Admin, Professore, Studente)
+
+**Classe** (Questo è l'anno in cui si trovano gli utenti. Esso è un numero)
+
+**Sezione** (Questa è la sezione in cui gli utenti si trovano. Essa è una lettera)
+
+**Password** (Questa è la password che serve agli utenti per accedere ai loro rispettivi account)
+
+---
+
+La **Gestione Domanda** viene descritto da:
+
+**Questito della domanda** (Questo è il testo della domanda stesso. Ovviamente serve per contenerlo all'interno di una variabile)
 
 **Risposte possibili a scelta multipla** (Abbiamo qui quante risposte possono esserci su una domanda. Da 2 in sù. Utilizziamo un array, un elenco, per tenere traccia delle risposte all'interno di ogni domanda)
 
@@ -70,7 +70,7 @@ Questito della domanda (Questo è il testo della domanda stesso. Ovviamente serv
 
 ---
 
-La **Classe Test** viene descritta da:
+La **Gestione Test** viene descritta da:
 
 **Domande scelte a mano** (Le domande che vengono scelte dal Professore quando vuole creare un test)
 
@@ -93,5 +93,3 @@ La **Classe Test** viene descritta da:
 **Progressione della difficoltà delle domande**(Indica se la difficoltà delle domande sarà: Lineare quindi costante e sempre in salita / Inversa, quindi dalla più difficile alla più semplice / Random, cioè casuale)
 
 ---
-
-#Una volta creato deve essere attivo perche gli studenti lo possano vedere e eseguire
