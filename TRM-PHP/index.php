@@ -8,7 +8,7 @@
 
 <body>
 	<?php
-	include "login.php";
+	include "DBConnection.php";
 
 	// variabile per mostrare il messaggio di fallimento di login
 	$login_failure = null;
@@ -23,8 +23,6 @@
 	if (isset($_SESSION["user"]) and (!$_SESSION["user"])) {
 		$login_failure = "Autenticazione fallita, username o password non corretti";
 	}
-
-	print_r($_SESSION);
 
 	// Controlla se l'utente ha già fatto un login e cambiato la password o no
 	if (isset($_SESSION["user"]) and $_SESSION["user"]) {
@@ -48,15 +46,22 @@
 				}
 			}
 		} else {
-			header('Location: Success.php');
+			if ($_SESSION["user"]["type"] == "studenti") {
+				header("Location: studente\\home.php");
+			} else {
+				if ($_SESSION["user"]["admin"]) {
+					header("Location: admin\\home.php");
+				} else {
+					header("Location: docente\\home.php");
+				}
+			}
 		}
 	}
 
 	?>
 	<div class="position-absolute top-50 start-50 translate-middle">
 
-
-		<div class="login" id="login" <?php echo !$change_pwd ? 'style="display: block"' : 'style="display: none"'; ?>>
+		<div class="login" id="login" <?php echo !$change_pwd ? null : "hidden" ?>>
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>Inserisci le credenziali</h4>
 			<br />
@@ -83,7 +88,7 @@
 		</div>
 
 
-		<div class="login" id="passwd_change" <?php echo $change_pwd ? 'style="display: block"' : 'style="display: none"'; ?>>
+		<div class="login" id="passwd_change" <?php echo $change_pwd ? null : "hidden" ?>>
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>E' necessario cambiare la password dell'account</h4>
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" , method="POST">
