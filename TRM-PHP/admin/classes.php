@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+	<title>Gestione classi</title>
+	<link rel="icon" type="image/png" href="../img/favicon.png">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,10 +21,10 @@
 
 			session_start();
 
+			// inizio a stampare le classi
 			echo "<pre>";
 
 			$query = "SELECT * FROM classi";
-
 			$sql_result = mysqli_query($conn, $query);
 
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
@@ -34,14 +36,17 @@
 
 			echo "</pre>";
 			?>
-			<input type="submit" value="cancella classi">
+			<input type="submit" value="cancella classi" name="del">
+
+			<!-- Per ora inutile -->
+			<input type="submit" value="promuovi classi" name="pro">
 		</form>
 	</div>
 	<div class="float-start">
 		<form method="POST" action="aggiungi_classi.php">
-			<input type="text" name="id"> Identificatore classe
+			<input type="text" name="id" required> Identificatore classe
 			<br>
-			<input type="text" name="desc"> indirizzo della classe
+			<input type="text" name="desc" required> indirizzo della classe
 			<br>
 			<input type="submit" value="Aggiungi">
 		</form>

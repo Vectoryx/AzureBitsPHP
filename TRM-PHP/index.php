@@ -1,7 +1,11 @@
-<?php session_start(); ?>
+<?php session_start();
+if (isset($_SESSION["user"])) {
+	$_SESSION["user"] = null;
+} ?>
 
 <head>
 	<title>Login</title>
+	<link rel="icon" type="image/png" href="img/favicon.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
 	<link rel="stylesheet" href="style.css" />
 </head>
@@ -9,26 +13,32 @@
 <body>
 	<?php
 	include "DBConnection.php";
-
 	// variabile per mostrare il messaggio di fallimento di login
 	$login_failure = null;
 
 	// variabile per cambiare form tra login/reset password
 	$change_pwd = false;
 
+	// provo a fare il login, inserisco in sessione il risultato, una array se un successo, false se fallito
 	if (isset($_POST["usr"]) and isset($_POST["pwd"])) {
 		$_SESSION["user"] = login($_POST["usr"], $_POST["pwd"]);
 	}
 
+	// controllo se il login è stato eseguito e non è fallito (un qualsiasi oggetto viene valutato true se esiste)
 	if (isset($_SESSION["user"]) and (!$_SESSION["user"])) {
 		$login_failure = "Autenticazione fallita, username o password non corretti";
 	}
 
-	// Controlla se l'utente ha già fatto un login e cambiato la password o no
+	// Controlla se l'utente ha già fatto un login ed cambiato la password o no
 	if (isset($_SESSION["user"]) and $_SESSION["user"]) {
+
+		// controllo se ha già fatto il login almeno una volta e cambiato la password
 		if ($_SESSION["user"]["hasLoggedOnce"] == 0) {
+
+			// questa variabile controlla i form, mostra il form corretto
 			$change_pwd = true;
 
+			// controllo se le nuove password sono state inserite
 			if (isset($_POST["pwd_1"]) and isset($_POST["pwd_2"])) {
 				if ($_POST["pwd_1"] == $_POST["pwd_2"]) {
 
@@ -38,7 +48,17 @@
 					$query = "UPDATE $table SET password='$new_pwd', hasLoggedOnce=1 WHERE ID=$UID;";
 					mysqli_query($conn, $query);
 					$change_pwd = false;
-					header("Location: Success.php");
+
+					// spedisco l'utente nell'home page corretta
+					if ($_SESSION["user"]["type"] == "studenti") {
+						header("Location: studente\\home.php");
+					} else {
+						if ($_SESSION["user"]["admin"]) {
+							header("Location: admin\\home.php");
+						} else {
+							header("Location: docente\\home.php");
+						}
+					}
 				} else {
 
 					unset($_POST["pwd_1"]);
@@ -46,6 +66,8 @@
 				}
 			}
 		} else {
+
+			// spedisco l'utente nell'home page corretta
 			if ($_SESSION["user"]["type"] == "studenti") {
 				header("Location: studente\\home.php");
 			} else {
@@ -65,13 +87,13 @@
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>Inserisci le credenziali</h4>
 			<br />
-			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" , method="POST">
+			<form method="POST">
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="floatingInput" placeholder="user.name" name="usr" />
+					<input type="text" class="form-control" id="floatingInput" placeholder="user.name" name="usr" required />
 					<label for="floatingInput">Username</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="floatingPassword" placeholder="password" name="pwd" />
+					<input type="password" class="form-control" id="floatingPassword" placeholder="password" name="pwd" required />
 					<label for="floatingPassword">Password</label>
 				</div>
 				<div class="text-danger">
@@ -91,14 +113,14 @@
 		<div class="login" id="passwd_change" <?php echo $change_pwd ? null : "hidden" ?>>
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>E' necessario cambiare la password dell'account</h4>
-			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" , method="POST">
+			<form method="POST">
 
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" name="pwd_1" placeholder="password" />
+					<input type="password" class="form-control" name="pwd_1" placeholder="password" required />
 					<label for="floatingPassword">Password</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" name="pwd_2" placeholder="password" />
+					<input type="password" class="form-control" name="pwd_2" placeholder="password" required />
 					<label for="floatingPassword">Password</label>
 				</div>
 				<div style="margin: 5px;">
