@@ -5,6 +5,9 @@
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
 	<link rel="stylesheet" href="style.css" />
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -44,7 +47,6 @@
 					$UID = $_SESSION["user"]["ID"];
 					$query = "UPDATE $table SET password='$new_pwd', hasLoggedOnce=1 WHERE ID=$UID;";
 					mysqli_query($conn, $query);
-					mysqli_errno($conn);
 					$change_pwd = false;
 
 					// spedisco l'utente nell'home page corretta
@@ -77,7 +79,7 @@
 			}
 		}
 	}
-/* 
+	/* 
 	print_r($_SESSION);
 	echo "<br> <br>";
 	print_r($_POST); */

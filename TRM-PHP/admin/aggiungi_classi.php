@@ -9,6 +9,7 @@ if ($_POST["id"] and $_POST["desc"]) {
 	mysqli_query($conn, $query);
 	header("Location: classes.php");
 } else {
+
 	// ----- Non più utile, il controllo sulla presenza dei dati avviene attraverso html
 	// se fallisce ritorno alla pagina precendente e segnalo un errore attraverso GET
 	header("Location: classes.php?e=true");
