@@ -1,7 +1,4 @@
-<?php session_start();
-if (isset($_SESSION["user"])) {
-	$_SESSION["user"] = null;
-} ?>
+<?php session_start(); ?>
 
 <head>
 	<title>Login</title>
@@ -47,16 +44,17 @@ if (isset($_SESSION["user"])) {
 					$UID = $_SESSION["user"]["ID"];
 					$query = "UPDATE $table SET password='$new_pwd', hasLoggedOnce=1 WHERE ID=$UID;";
 					mysqli_query($conn, $query);
+					mysqli_errno($conn);
 					$change_pwd = false;
 
 					// spedisco l'utente nell'home page corretta
 					if ($_SESSION["user"]["type"] == "studenti") {
-						header("Location: studente\\home.php");
+						header("Location: studente\\home.html");
 					} else {
 						if ($_SESSION["user"]["admin"]) {
-							header("Location: admin\\home.php");
+							header("Location: admin\\home.html");
 						} else {
-							header("Location: docente\\home.php");
+							header("Location: docente\\home.html");
 						}
 					}
 				} else {
@@ -69,16 +67,20 @@ if (isset($_SESSION["user"])) {
 
 			// spedisco l'utente nell'home page corretta
 			if ($_SESSION["user"]["type"] == "studenti") {
-				header("Location: studente\\home.php");
+				header("Location: studente\\home.html");
 			} else {
 				if ($_SESSION["user"]["admin"]) {
-					header("Location: admin\\home.php");
+					header("Location: admin\\home.html");
 				} else {
-					header("Location: docente\\home.php");
+					header("Location: docente\\home.html");
 				}
 			}
 		}
 	}
+/* 
+	print_r($_SESSION);
+	echo "<br> <br>";
+	print_r($_POST); */
 
 	?>
 	<div class="position-absolute top-50 start-50 translate-middle">
