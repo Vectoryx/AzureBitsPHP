@@ -25,11 +25,11 @@
 		$row = mysqli_fetch_assoc($sql_result);
 		$testo = $row["testo"];
 		$materia = $row["id_materia"];
-		$argomenento = $row["id_argomento"];
+		$argomento = $row["id_argomento"];
 		$punteggio = $row["punteggio"];
 		$id = $row["ID"];
 
-		echo "<input type='checkbox' name='$ID' required>$testo - $materia - $argomento - $punteggio<br>";
+		echo "<input type='checkbox' name='$id' required>$testo - $materia - $argomento - $punteggio<br>";
 	}
 
 	?>
