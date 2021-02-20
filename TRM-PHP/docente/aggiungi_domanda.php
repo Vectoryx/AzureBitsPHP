@@ -9,7 +9,7 @@ $testo = $_POST["testo"];
 $materia = $_POST["materia"];
 $argomento = $_POST["argomento"];
 $punteggio = $_POST["punteggio"];
-$img_url = "TRM-PHP\\\\images" . $_FILES["immagine"]["name"]; // quadruplo beckslash perche anche sql tratta il beckslash singolo come carattere escape 
+$img_url = "TRM-PHP\\\\images" . $_FILES["immagine"]["name"]; // quadruplo backslash perche anche sql tratta il backslash singolo come carattere escape 
 $tipo = $_POST["selezione-tipo"];
 $n_risposte = $_POST["n-risposte"];
 
@@ -21,9 +21,6 @@ if (isset($argomento) and isset($creatore) and isset($materia) and isset($punteg
 	mysqli_query($conn, $query);
 	move_uploaded_file($_FILES["immagine"]["tmp_name"], "..\\images\\" . $_FILES["immagine"]["name"]);
 }
-/*
-"SELECT cf, nome FROM guide JOIN lingue_guida ON (lingue_guida.idguida = guida.cf) JOIN lingue ON lingua.id = lingua_guida.idlingua 
-WHERE titolo_studio ";*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,11 +33,13 @@ WHERE titolo_studio ";*/
 </head>
 
 <body>
+	<p> pagina non finita </p>
 	<form method="POST" action="aggiungi_risposte.php">
 		<?php
 
 		if ($tipo != 2) {
 			for ($i = 0; $i < $n_risposte; $i++) {
+				echo "";
 			}
 		}
 

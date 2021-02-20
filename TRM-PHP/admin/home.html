@@ -1,17 +1,48 @@
 <!DOCTYPE html>
+
 <html lang="it">
+
 	<head>
+
 		<title>Home page Admin</title>
+
 		<link rel="icon" type="image/png" href="../img/favicon.png" />
+		<link rel="stylesheet" href="../style2.css" />
+
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script>
+
+			function Clear(name,value,duration) {
+					var expire = new Date();
+					var now = new Date();
+					expire.setTime(now.getTime() + (parseInt(duration) * 60000));
+					document.cookie = name + '=' + escape(value) + '; expires=' + expire.toGMTString() + '; path=/';
+			}
+
+			function MyFunction() {
+				Clear("PHPSESSID",'',-1);
+				window.location.replace('../index.php');
+			}
+		</script>
+
 	</head>
 
-	<body>
-		<p>Cosa vuoi fare?</p>
-		<br />
-		<button><a href="classes.php">Gestione classi</a></button>
-		<button><a href="users.php">Gestione utenti</a></button>
+	<body class="body_ad">
+
+		<div style="background-color: #939597">
+			<img src="../img/logo_nitido_p_o.png" width="70" height="50"/>
+			<div class="button" onclick="MyFunction()">Log out</div>
+		</div>
+
+		<div class="main">
+			<p class="p">Cosa vuoi fare?</p>
+			<br>
+			<button><a href="classes.php">Gestione classi</a></button>
+			<button><a href="users.php">Gestione utenti</a></button>
+		</div>
+
 	</body>
 </html>
