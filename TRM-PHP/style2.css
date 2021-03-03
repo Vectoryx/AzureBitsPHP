@@ -1,0 +1,30 @@
+.body_doc {
+	background-color: #EDF1FF;
+}
+
+.body_ad {
+	background-color: #EDF1FF;
+	margin: 0px;
+}
+
+p {
+	font-family: New Times Roman;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.button {
+	float: right;
+	background-color: #939597;
+	cursor: pointer;
+	margin-top: 14px;
+	margin-right: 20px;
+	font-family: New Times Roman;
+    font-size: 20px;
+}
+
+.main {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
