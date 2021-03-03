@@ -77,10 +77,75 @@
 
 	<div class="rimuovi-utente">
 		<h3>Rimuovi utente</h3>
+
 		<form action="rimuovi_utente.php" method="POST">
+			<div style="overflow: auto; height: 500px; width: 500px">
+				<?php
+
+				echo "<pre class='lista-utenti'>";
+
+				echo "<input type='search' name='ricerca' id='ricerca-utenti' placeholder='user.name' onchange=search()><br><br>";
+
+				echo "<br>Docenti<br><br>";
+
+				$query = "SELECT * FROM docenti";
+				$sql_result = mysqli_query($conn, $query);
+
+				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+					$row = $sql_result->fetch_assoc();
+					echo "<input type='checkbox' name='doc-{$row["username"]}' value='{$row["ID"]}'> {$row["username"]}<br>";
+				}
+
+				echo "<br>Studenti<br><br>";
+
+				$query = "SELECT * FROM studenti";
+				$sql_result = mysqli_query($conn, $query);
+
+				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+					$row = $sql_result->fetch_assoc();
+					echo "<input type='checkbox' name='stud-{$row["username"]}' value='{$row["ID"]}'> {$row["username"]}<br>";
+				}
+
+				echo "</pre>";
+
+				?>
+			</div>
+			<input type="submit" value="Cancella">
 		</form>
 	</div>
 
+	<div class="modifica-utenti">
+		<br><br>
+		<h3>Modifica utenti</h3>
+		<div style="overflow: auto; height: 500px; width: 500px; text-decoration: none">
+			<?php
+
+			echo "<pre class='lista-utenti'>";
+
+			echo "<br>Docenti<br><br>";
+
+			$query = "SELECT * FROM docenti";
+			$sql_result = mysqli_query($conn, $query);
+
+			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+				$row = $sql_result->fetch_assoc();
+				echo "<a href='modifica.php?user=doc-{$row["ID"]}'>{$row["username"]}</a><br>";
+			}
+
+			echo "<br>Studenti<br><br>";
+
+			$query = "SELECT * FROM studenti";
+			$sql_result = mysqli_query($conn, $query);
+
+			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+				$row = $sql_result->fetch_assoc();
+				echo "<a href='modifica.php?user=stud-{$row["ID"]}'>{$row["username"]}</a><br>";
+			}
+
+			echo "</pre>";
+			?>
+		</div>
+	</div>
 
 	<script>
 		// questo script è necessario per cambiare il tipo di dato per ogni utente
@@ -91,7 +156,7 @@
 		// riceve "group" => id_classe ). Quando seleziono docente pongo nome uguale a valore, diverso per ogni input. (il server php
 		// riceve id_classe => id_classe).
 		// Fare ciò è facilmente fattibile in javascript 
-		function change(){
+		function change() {
 
 			// trovo il menu drop-down
 			var selection = document.getElementById("Utenti");
@@ -138,7 +203,6 @@
 
 			}
 		}
-
 	</script>
 
 </body>
