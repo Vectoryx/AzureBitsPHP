@@ -39,7 +39,7 @@ if (isset($argomento) and isset($creatore) and isset($materia) and isset($punteg
 
 		if ($tipo != 2) {
 			for ($i = 0; $i < $n_risposte; $i++) {
-				echo "";
+				echo "<input type='text' name='{$i}'><br>";
 			}
 		}
 

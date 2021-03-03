@@ -61,13 +61,6 @@
 		<input type="submit" value="submit">
 	</form>
 
-	<br><br><br>
-	<form method="POST" action="aggiungi_materia.php">
-
-		Nome materia <input type="text" name="materia" id="input-materia">
-		<input type="submit" value="submit">
-	</form>
-
 	</form>
 	<br><br><br>
 	<form method="POST" action="aggiungi_argomento.php">

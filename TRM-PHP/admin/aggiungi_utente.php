@@ -24,8 +24,8 @@ if ($selezione and $username) {
 
 	// per uno studente basta aggiungere l'username e la classe nella tabella
 	if ($selezione == "Studente") {
-		$classe = $_POST["group"];
-		$query = "INSERT INTO `studenti` (`username`, `password`, `hasLoggedOnce`, `id_classe`) VALUES ('leonardo', '498mhnk', 0, '1^A');";
+		$classe = $_POST["classi"];
+		$query = "INSERT INTO `studenti` (`username`, `password`, `hasLoggedOnce`, `id_classe`) VALUES ('$username', '$pwd', 0, '$classe');";
 		mysqli_query($conn, $query);
 	}
 
@@ -37,15 +37,24 @@ if ($selezione and $username) {
 		mysqli_query($conn, $query);
 
 		// ottengo l'id del docente appena inserito
-		$query = "SELECT ID FROM docenti WHERE username='$username' AND password='$pwd' AND hasLoggedOnce=0 AND admin=0;";
+		$query = "SELECT LAST_INSERT_ID() as ID;";
 		$sql_result = mysqli_query($conn, $query);
 		$row = $sql_result->fetch_assoc();
 		$ID_doc = $row["ID"];
 
 		// inserisco i collegamenti tra le classi e i docenti
 		foreach ($_POST as $key => $value) {
-			if ($_POST["usr"] != $key and $_POST["selezione-utenti"] != $key) { // controllo di non inserire nel database i dati sbagliati
+			echo "key=$key <br>";
+			echo "val= " . strpos($key, "classe") . "<br>";
+			if (strpos($key, "classe") === 0){ // controllo di non inserire nel database i dati sbagliati
+				echo "classe $value <br>";
 				$query = "INSERT INTO docenti_classi VALUES ('$ID_doc', '$value');";
+				mysqli_query($conn, $query);
+			}
+			if (strpos($key, "materia") === 0){ // controllo di non inserire nel database i dati sbagliati
+				echo "materia $value <br>";
+				$query = "INSERT INTO materia_docente VALUES ('$ID_doc', '$value');";
+				echo "$query <br>";
 				mysqli_query($conn, $query);
 			}
 		}
@@ -59,5 +68,4 @@ if ($selezione and $username) {
 	}
 }
 // e ritorno all pagina di partenza
-
 header("Location: users.php");
