@@ -48,7 +48,7 @@
 		Testo della domanda <input type="text" name="testo" required> <br><br>
 		Punti da assegnare alla domanda <input type="number" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
-		
+
 		Tipo di domanda <select name="selezione-tipo" id="tipo" onchange="change()">
 			<option value="0" selected>Risposta multipla</option>
 			<option value="1">Testo bucato</option>

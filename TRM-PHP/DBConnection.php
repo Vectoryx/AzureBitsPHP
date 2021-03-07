@@ -42,3 +42,16 @@ function login($username, $password) {
 	}
 	return false;
 }
+
+// genera una password randomica per gli utenti
+function gen_password() {
+	$res = "";
+
+	$res .= rand(100, 999);
+
+	for ($i = 0; $i < 4; $i++) {
+		$res .= chr(rand(97, 122));
+	}
+
+	return $res;
+}

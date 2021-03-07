@@ -11,4 +11,4 @@ foreach ($_POST as $key => $value) {
 		mysqli_query($conn, $query);
 	}
 }
-header("Location: users.php");
+header("Location: utenti.php");

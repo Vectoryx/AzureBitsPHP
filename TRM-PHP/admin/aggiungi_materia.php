@@ -7,4 +7,4 @@ if ($_POST["materia"]) {
 	$query = "INSERT INTO materie VALUES ('$mat');";
 	mysqli_query($conn, $query);
 }
-header("Location: questions.php");
+header("Location: domande.php");
