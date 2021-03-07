@@ -40,8 +40,8 @@
 				$row = $sql_result->fetch_assoc();
 
 				// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
-				echo "<input type='radio' class='opzione-classe' name='classi' value='{$row["id_classe"]}'> ";
-				echo "{$row["id_classe"]} {$row["indirizzo"]}<br>";
+				echo "<input type='radio' class='opzione-classe' name='classi' value='{$row["ID"]}'> ";
+				echo "{$row["ID"]} {$row["indirizzo"]}<br>";
 			}
 
 			echo "</pre>";
@@ -153,8 +153,8 @@
 		// quindi, nel caso del docente, quando devo spedire più classi ciò non è possibile perchè tutti i valori vengono raggruppati in
 		// uno. Ma se cambio il nome per ogni input i radio button non sarebbero più mutualmente esclusivi.
 		// Per questo motivo se seleziono studente il nome di tutti gli input è uguale a "group", ed il valore è diverso (il server php 
-		// riceve "group" => id_classe ). Quando seleziono docente pongo nome uguale a valore, diverso per ogni input. (il server php
-		// riceve id_classe => id_classe).
+		// riceve "group" => ID ). Quando seleziono docente pongo nome uguale a valore, diverso per ogni input. (il server php
+		// riceve ID => ID).
 		// Fare ciò è facilmente fattibile in javascript 
 		function change() {
 

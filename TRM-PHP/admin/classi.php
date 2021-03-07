@@ -29,8 +29,8 @@
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 				$row = $sql_result->fetch_assoc();
 
-				echo '<input type="checkbox" name=' . $row["id_classe"] . "> ";
-				echo $row["id_classe"] . "  " . $row["indirizzo"] . "<br>";
+				echo '<input type="checkbox" name=' . $row["ID"] . "> ";
+				echo $row["ID"] . "  " . $row["indirizzo"] . "<br>";
 			}
 
 			echo "</pre>";

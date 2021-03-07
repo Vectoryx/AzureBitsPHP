@@ -12,7 +12,7 @@ if ($selezione and $username) {
 	// per uno studente basta aggiungere l'username e la classe nella tabella
 	if ($selezione == "Studente") {
 		$classe = $_POST["classi"];
-		$query = "INSERT INTO `studenti` (`username`, `password`, `hasLoggedOnce`, `id_classe`) VALUES ('$username', '$pwd', 0, '$classe');";
+		$query = "INSERT INTO `studenti` (`username`, `password`, `hasLoggedOnce`, `ID`) VALUES ('$username', '$pwd', 0, '$classe');";
 		mysqli_query($conn, $query);
 	}
 
