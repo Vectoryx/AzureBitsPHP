@@ -1,19 +1,6 @@
 <?php
 include "..\\DBConnection.php";
 
-// genera una password randomica per gli utenti
-function gen_password() {
-	$res = "";
-
-	$res .= rand(100, 999);
-
-	for ($i = 0; $i < 4; $i++) {
-		$res .= chr(rand(97, 122));
-	}
-
-	return $res;
-}
-
 $selezione = $_POST["selezione-utenti"];
 $username = $_POST["usr"];
 
@@ -44,17 +31,12 @@ if ($selezione and $username) {
 
 		// inserisco i collegamenti tra le classi e i docenti
 		foreach ($_POST as $key => $value) {
-			echo "key=$key <br>";
-			echo "val= " . strpos($key, "classe") . "<br>";
-			if (strpos($key, "classe") === 0){ // controllo di non inserire nel database i dati sbagliati
-				echo "classe $value <br>";
+			if (strpos($key, "classe") === 0) { // controllo di non inserire nel database i dati sbagliati
 				$query = "INSERT INTO docenti_classi VALUES ('$ID_doc', '$value');";
 				mysqli_query($conn, $query);
 			}
-			if (strpos($key, "materia") === 0){ // controllo di non inserire nel database i dati sbagliati
-				echo "materia $value <br>";
+			if (strpos($key, "materia") === 0) { // controllo di non inserire nel database i dati sbagliati
 				$query = "INSERT INTO materia_docente VALUES ('$ID_doc', '$value');";
-				echo "$query <br>";
 				mysqli_query($conn, $query);
 			}
 		}
@@ -68,4 +50,4 @@ if ($selezione and $username) {
 	}
 }
 // e ritorno all pagina di partenza
-header("Location: users.php");
+header("Location: utenti.php");
