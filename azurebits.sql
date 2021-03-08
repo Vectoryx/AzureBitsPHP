@@ -560,6 +560,38 @@ CREATE TABLE IF NOT EXISTS `test_domande` (
   CONSTRAINT `test_domande_ibfk_2` FOREIGN KEY (`id_domanda`) REFERENCES `domande` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TRIGGER hash_pwd_doc_upd;
+
+CREATE DEFINER=`root`@`localhost` TRIGGER hash_pwd_doc_upd
+BEFORE UPDATE
+ON docenti
+FOR EACH ROW 
+SET new.password = PASSWORD(new.password);
+
+DROP TRIGGER hash_pwd_doc_ins;
+
+CREATE DEFINER=`root`@`localhost` TRIGGER hash_pwd_doc_ins
+BEFORE INSERT
+ON docenti
+FOR EACH ROW 
+SET new.password = PASSWORD(new.password);
+
+DROP IF EXISTS TRIGGER hash_pwd_stud_ins;
+
+CREATE DEFINER=`root`@`localhost` TRIGGER hash_pwd_stud_ins
+BEFORE INSERT
+ON studenti
+FOR EACH ROW 
+SET new.password = PASSWORD(new.password);
+
+DROP IF EXISTS TRIGGER hash_pwd_stud_upd;
+
+CREATE DEFINER=`root`@`localhost` TRIGGER hash_pwd_stud_upd
+BEFORE UPDATE
+ON studenti
+FOR EACH ROW 
+SET new.password = PASSWORD(new.password);
+
 -- Dump dei dati della tabella azurebits.test_domande: ~0 rows (circa)
 /*!40000 ALTER TABLE `test_domande` DISABLE KEYS */;
 /*!40000 ALTER TABLE `test_domande` ENABLE KEYS */;
