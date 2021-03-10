@@ -28,7 +28,7 @@ function login($username, $password) {
 	for ($i = 0; $i < count($tables); $i++) {
 
 		// esecute query
-		$query = "SELECT * FROM $tables[$i] WHERE BINARY username='$username' AND password='$password';";
+		$query = "SELECT * FROM $tables[$i] WHERE BINARY username='$username' AND password=PASSWORD('$password');";
 		$sql_result = mysqli_query($conn, $query);
 
 		// actual check
