@@ -29,17 +29,36 @@
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 				$row = $sql_result->fetch_assoc();
 
-				echo '<input type="checkbox" name=' . $row["ID"] . "> ";
-				echo $row["ID"] . "  " . $row["indirizzo"] . "<br>";
+				echo "<input type='checkbox' name='classe-{$row["ID"]}'> ";
+				echo "{$row["ID"]} {$row["indirizzo"]}<br>";
 			}
 
 			echo "</pre>";
 			?>
-			<input type="submit" value="cancella classi" name="del">
+			<p>Dani con JS metti un pulsante seleziona tutti</p>
+			<input type="submit" value="cancella" name="op">
 
 			<!-- Per ora inutile -->
-			<input type="submit" value="promuovi classi" name="pro">
+			<input type="submit" value="promuovi" name="op">
 		</form>
+
+		<?php
+
+		echo "<pre class=lista-classi>";
+
+		$query = "SELECT * FROM classi";
+		$sql_result = mysqli_query($conn, $query);
+
+		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+			$row = $sql_result->fetch_assoc();
+
+			echo "<a href='modifica_cls.php?id={$row["ID"]}'>{$row["ID"]}</a><br>";
+		}
+
+		echo "</pre>";
+
+		?>
+
 	</div>
 	<div class="float-start">
 		<form method="POST" action="aggiungi_classe.php">

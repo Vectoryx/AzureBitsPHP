@@ -129,7 +129,7 @@
 
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 				$row = $sql_result->fetch_assoc();
-				echo "<a href='modifica.php?user=doc-{$row["ID"]}'>{$row["username"]}</a><br>";
+				echo "<a href='modifica_usr.php?user=doc-{$row["ID"]}'>{$row["username"]}</a><br>";
 			}
 
 			echo "<br>Studenti<br><br>";
