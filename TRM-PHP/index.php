@@ -24,15 +24,15 @@
 		$_SESSION["user"] = login($_POST["usr"], $_POST["pwd"]);
 	}
 
-	// controllo se il login è stato eseguito e non è fallito (un qualsiasi oggetto viene valutato true se esiste)
+	// controllo se il login e' stato eseguito e non e' fallito (un qualsiasi oggetto viene valutato true se esiste)
 	if (isset($_SESSION["user"]) and (!$_SESSION["user"])) {
 		$login_failure = "Autenticazione fallita, username o password non corretti";
 	}
 
-	// Controlla se l'utente ha già fatto un login ed cambiato la password o no
+	// Controlla se l'utente ha gia' fatto un login ed cambiato la password o no
 	if (isset($_SESSION["user"]) and $_SESSION["user"]) {
 
-		// controllo se ha già fatto il login almeno una volta e cambiato la password
+		// controllo se ha gia' fatto il login almeno una volta e cambiato la password
 		if ($_SESSION["user"]["hasLoggedOnce"] == 0) {
 
 			// questa variabile controlla i form, mostra il form corretto

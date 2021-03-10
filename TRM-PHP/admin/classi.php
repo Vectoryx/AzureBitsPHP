@@ -69,7 +69,7 @@
 			<input type="submit" value="Aggiungi">
 		</form>
 		<p>
-			<?php echo isset($_GET["e"]) ? "uno o più valori mancanti" : ""; ?>
+			<?php echo isset($_GET["e"]) ? "uno o piu' valori mancanti" : ""; ?>
 		</p>
 	</div>
 </div>

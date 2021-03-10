@@ -28,19 +28,6 @@
 			echo "<input type=\"radio\" name=\"materia\" value=\"$nome\" required>$nome<br>";
 		}
 
-		$query = "SELECT * FROM argomenti";
-		$sql_result = mysqli_query($conn, $query);
-
-		echo "<br>";
-		echo "argomenti <br>";
-
-		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-			$row = mysqli_fetch_assoc($sql_result);
-			$titolo = $row["titolo"];
-
-			echo "<input type=\"radio\" name=\"argomento\" value=\"$titolo\" required>$titolo<br>";
-		}
-
 		?>
 
 		<br>
@@ -54,22 +41,18 @@
 			<option value="1">Testo bucato</option>
 			<option value="2">Vero e False</option>
 		</select> <br><br>
-		<div id="number-input">
+		<div id="numeri-input">
 			numero risposte <input type="number" min="0" name="n-risposte">
 		</div>
 		<br><br>
 		<input type="submit" value="submit">
 	</form>
 
-	</form>
-	<br><br><br>
-	<form method="POST" action="aggiungi_argomento.php">
-
-		Titolo argomento <input type="text" name="argomento" id="input-argomento">
-		<input type="submit" value="submit">
-	</form>
-
 	<script>
+		/**
+		 * Rimuove/aggiunge l'opzione numeri-input per la gestione di quante risposte devo prevedere nella prossima pagina.
+		 * Questo perche' le domande vero/false hanno sempre due risposte
+		 */
 		function change() {
 
 			// trovo il menu drop-down

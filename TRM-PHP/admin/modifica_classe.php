@@ -12,7 +12,7 @@
 // }
 
 // if($_POST["ID"]) {
-// 	// la classe non può esistere già
+// 	// la classe non puo' esistere gia'
 // 	$query = "SELECT * FROM classi WHERE ID='{$_POST["ID"]}';";
 // 	$sql_result = mysqli_query($conn, $query);
 
