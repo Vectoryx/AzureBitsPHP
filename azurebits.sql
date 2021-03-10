@@ -589,7 +589,10 @@ CREATE TRIGGER hash_pwd_doc_upd
 BEFORE UPDATE
 ON docenti
 FOR EACH ROW 
-SET new.password = PASSWORD(new.password)//
+IF (OLD.password != NEW.password) THEN
+SET new.password = PASSWORD(new.password);
+END IF;
+END //
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
@@ -611,7 +614,10 @@ CREATE TRIGGER hash_pwd_stud_upd
 BEFORE UPDATE
 ON studenti
 FOR EACH ROW 
-SET new.password = PASSWORD(new.password)//
+IF (OLD.password != NEW.password) THEN
+SET new.password = PASSWORD(new.password);
+END IF;
+END //
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
