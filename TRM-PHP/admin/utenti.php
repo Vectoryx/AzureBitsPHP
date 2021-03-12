@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
 	<title>Gestione utenti</title>
@@ -64,14 +64,14 @@
 
 			?>
 			<input type="text" name="usr" required> Username <br>
-			<input type="submit" value="submit">
+			<input type="submit" value="Invia">
 		</form>
 
 		<form method="POST" action="u_aggiungi_materia.php">
 
 			<label for="input-materia">Inserisci nuova materia</label>
 			<input type="text" name="materia" id="input-materia">
-			<input type="submit" value="submit">
+			<input type="submit" value="Invia">
 		</form><br><br>
 	</div>
 
