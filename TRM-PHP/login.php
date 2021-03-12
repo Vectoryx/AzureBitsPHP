@@ -26,7 +26,7 @@ function login($username, $password) {
 		if ($sql_result && mysqli_num_rows($sql_result)) {
 			$row = $sql_result->fetch_assoc();
 			
-			$res=array("type" => $tables[$i], $row["ID"], $row["hasLoggedOnce"]);
+			$res=array("type" => $tables[$i], "ID" => $row["ID"], "hasLoggedOnce" => $row["hasLoggedOnce"]);
 
 			if ($tables[$i] == "docenti") {
 				$res["admin"] = $row["admin"];
