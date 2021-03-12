@@ -18,7 +18,7 @@ session_start();
 		<div class="login" id="passwd_change">
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>E' necessario cambiare la password dell'account</h4>
-			<form method="POST" action="nuova_pwd.php">
+			<form method="POST" action="u_nuova_pwd.php">
 				<div class="form-floating mb-3">
 					<input type="password" class="form-control" id="ori" name="pwd_ori" placeholder="password" required />
 					<label for="ori">Password</label>

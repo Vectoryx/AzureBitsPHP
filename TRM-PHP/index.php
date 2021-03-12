@@ -18,7 +18,7 @@
 			<img src="img/logo_nitido_p_o.png" class="img-fluid" alt="logo AzureBits">
 			<h4>Inserisci le credenziali</h4>
 			<br>
-			<form method="POST" action="login.php">
+			<form method="POST" action="u_login.php">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="floatingInput" placeholder="user.name" name="usr" required>
 					<label for="floatingInput">Username</label>

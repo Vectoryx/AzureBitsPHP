@@ -14,7 +14,7 @@
 </body>
 <div class="container">
 	<div class="float-start">
-		<form action="cancella_classe.php" method="POST">
+		<form action="u_cancella_classe.php" method="POST">
 			<?php
 			include ".\\..\\DBConnection.php";
 
@@ -61,7 +61,7 @@
 
 	</div>
 	<div class="float-start">
-		<form method="POST" action="aggiungi_classe.php">
+		<form method="POST" action="u_aggiungi_classe.php">
 			<input type="text" name="id" required> Identificatore classe
 			<br>
 			<input type="text" name="desc" required> indirizzo della classe

@@ -34,7 +34,7 @@ if (isset($argomento) and isset($creatore) and isset($materia) and isset($punteg
 
 <body>
 	<p> pagina non finita </p>
-	<form method="POST" action="aggiungi_risposte.php">
+	<form method="POST" action="u_aggiungi_risposte.php">
 		<?php
 
 		if ($tipo != 2) {

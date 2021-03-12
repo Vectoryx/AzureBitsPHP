@@ -11,7 +11,7 @@
 
 <body>
 
-	<form method="POST" action="modifica_classe.php">
+	<form method="POST" action="u_modifica_classe.php">
 	<?php
 		include "../DBConnection.php";
 

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<form method="POST" action="aggiungi_domanda.php" enctype="multipart/form-data">
+	<form method="POST" action="u_aggiungi_domanda.php" enctype="multipart/form-data">
 		<?php
 		session_start();
 

@@ -13,7 +13,7 @@
 	<p>LE TRE COLONNE DOVRANNO ESSERE UNA IN FIANCO ALL'ALTRA</p>
 	<div class="aggiungi-utente">
 		<h3>Aggiungi utente</h3>
-		<form action="aggiungi_utente.php" method="POST">
+		<form action="u_aggiungi_utente.php" method="POST">
 			<!-- lista per selezionare il tipo di utente, ogni tipo di utente ha input diversi -->
 			<label for="Utenti">Tipo di utente</label>
 			<select name="selezione-utenti" id="Utenti" onchange="change()">
@@ -67,7 +67,7 @@
 			<input type="submit" value="submit">
 		</form>
 
-		<form method="POST" action="aggiungi_materia.php">
+		<form method="POST" action="u_aggiungi_materia.php">
 
 			<label for="input-materia">Inserisci nuova materia</label>
 			<input type="text" name="materia" id="input-materia">
@@ -78,7 +78,7 @@
 	<div class="rimuovi-utente">
 		<h3>Rimuovi utente</h3>
 
-		<form action="rimuovi_utente.php" method="POST">
+		<form action="u_rimuovi_utente.php" method="POST">
 			<div style="overflow: auto; height: 500px; width: 500px">
 				<?php
 
