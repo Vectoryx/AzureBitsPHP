@@ -12,20 +12,26 @@
 <body>
 	<form method="POST" action="aggiungi_domanda.php" enctype="multipart/form-data">
 		<?php
+		session_start();
 
 		include "..\\DBConnection.php";
 
-		$query = "SELECT * FROM materie";
+		// Le materie sono selezionate automaticamente dalla materia insegnata, se esiste solo un'opzione metto un radio button checked e disabled
+		$query = "SELECT * FROM materie_docenti WHERE id_docente={$_SESSION["user"]["ID"]};";
 		$sql_result = mysqli_query($conn, $query);
 
 		echo "<br>";
 		echo "materie <br>";
 
-		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-			$row = mysqli_fetch_assoc($sql_result);
-			$nome = $row["nome"];
-
-			echo "<input type=\"radio\" name=\"materia\" value=\"$nome\" required>$nome<br>";
+		$num_rows = mysqli_num_rows($sql_result);
+		if ($num_rows == 1) {
+			$row = $sql_result->fetch_assoc();
+			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked disabled>{$row["id_materia"]}<br>";
+		} else {
+			for ($i = 0; $i < $num_rows; $i++) {
+				$row = $sql_result->fetch_assoc();
+				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
+			}
 		}
 
 		?>

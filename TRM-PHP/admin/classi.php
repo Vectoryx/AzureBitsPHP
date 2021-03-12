@@ -44,7 +44,7 @@
 
 		<?php
 
-		echo "<pre class=lista-classi>";
+		echo "<pre class='lista-classi'>";
 
 		$query = "SELECT * FROM classi";
 		$sql_result = mysqli_query($conn, $query);
