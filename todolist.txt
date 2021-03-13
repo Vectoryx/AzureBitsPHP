@@ -1,20 +1,20 @@
-[✖] amministratore
+[✔] amministratore
 	[✔] Utenti
 		[✔] Inserire Utente
 			[✔] Distinguere tra docente, studente e amministratore
 			[✔] Assegnare classi e materie a docenti
 		[✔] Cancellare Utente
 		[✔] Modificare Utente
-	[✖] Classi
+	[✔] Classi
 		[✔] Inserire classi con indirizzo e sezione
 		[-] Promuovere in blocco di una classe // da decidere se fare
 		[✔] Cancellare classi in blocco
-		[✖] Modificare gli studenti in una classe
+		[✔] Modificare gli studenti in una classe
 
 [✖] docenti
 	[✖] Domande e risposte
 		[✔] Aggiungere domande
-		[✖] Aggiungere relative risposta
+		[✔] Aggiungere relative risposta
 		[✖] Modificare domanda e risposta
 	[✖] Test
 		[✖] Definire un test

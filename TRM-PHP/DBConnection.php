@@ -14,35 +14,6 @@ if (!$conn) {
 	die("Connection failed: " . mysqli_connect_error());
 }
 
-/**
- * Dati username e password controlla nel database se esiste un utente con quei paramentri, se esiste ritorna un array associativo con tutti i valori
- * dell'utente, se non esiste ritorna falso
- * 
- * @param string $username l'username dell' utente
- * @param string $password la password dell' utente
- * 
- * @return array|bool an array containing the users info, false otherwise
- */
-function login($username, $password) {
-	global $tables, $conn;
-	for ($i = 0; $i < count($tables); $i++) {
-
-		// esecute query
-		$query = "SELECT * FROM $tables[$i] WHERE BINARY username='$username' AND password=PASSWORD('$password');";
-		$sql_result = mysqli_query($conn, $query);
-
-		// actual check
-		if ($sql_result && mysqli_num_rows($sql_result)) {
-			$row = $sql_result->fetch_assoc();
-
-			// add the table of the user
-			$row["type"] = $tables[$i];
-			return $row;
-		}
-	}
-	return false;
-}
-
 // genera una password randomica per gli utenti
 function gen_password() {
 	$res = "";

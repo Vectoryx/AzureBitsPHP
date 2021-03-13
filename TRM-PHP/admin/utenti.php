@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
 	<title>Gestione utenti</title>
@@ -13,7 +13,7 @@
 	<p>LE TRE COLONNE DOVRANNO ESSERE UNA IN FIANCO ALL'ALTRA</p>
 	<div class="aggiungi-utente">
 		<h3>Aggiungi utente</h3>
-		<form action="aggiungi_utente.php" method="POST">
+		<form action="u_aggiungi_utente.php" method="POST">
 			<!-- lista per selezionare il tipo di utente, ogni tipo di utente ha input diversi -->
 			<label for="Utenti">Tipo di utente</label>
 			<select name="selezione-utenti" id="Utenti" onchange="change()">
@@ -28,7 +28,7 @@
 
 			session_start();
 
-			// inizio a stampare le classi, utilizzo pre perchè non formatta il testo
+			// inizio a stampare le classi, utilizzo pre perche' non formatta il testo
 			echo "<pre id=\"class-list\">";
 
 			// ottengo le classi del database
@@ -64,21 +64,21 @@
 
 			?>
 			<input type="text" name="usr" required> Username <br>
-			<input type="submit" value="submit">
+			<input type="submit" value="Invia">
 		</form>
 
-		<form method="POST" action="aggiungi_materia.php">
+		<form method="POST" action="u_aggiungi_materia.php">
 
 			<label for="input-materia">Inserisci nuova materia</label>
 			<input type="text" name="materia" id="input-materia">
-			<input type="submit" value="submit">
+			<input type="submit" value="Invia">
 		</form><br><br>
 	</div>
 
 	<div class="rimuovi-utente">
 		<h3>Rimuovi utente</h3>
 
-		<form action="rimuovi_utente.php" method="POST">
+		<form action="u_rimuovi_utente.php" method="POST">
 			<div style="overflow: auto; height: 500px; width: 500px">
 				<?php
 
@@ -148,14 +148,14 @@
 	</div>
 
 	<script>
-		// questo script è necessario per cambiare il tipo di dato per ogni utente
+		// questo script e' necessario per cambiare il tipo di dato per ogni utente
 		// Per cambiare tipo di input devo stare attento all'attributo nome, quando spedisco il form l'attributo nome indica un solo valore
-		// quindi, nel caso del docente, quando devo spedire più classi ciò non è possibile perchè tutti i valori vengono raggruppati in
-		// uno. Ma se cambio il nome per ogni input i radio button non sarebbero più mutualmente esclusivi.
-		// Per questo motivo se seleziono studente il nome di tutti gli input è uguale a "group", ed il valore è diverso (il server php 
+		// quindi, nel caso del docente, quando devo spedire piu' classi cio' non e' possibile perche' tutti i valori vengono raggruppati in
+		// uno. Ma se cambio il nome per ogni input i radio button non sarebbero piu' mutualmente esclusivi.
+		// Per questo motivo se seleziono studente il nome di tutti gli input e' uguale a "group", ed il valore e' diverso (il server php 
 		// riceve "group" => ID ). Quando seleziono docente pongo nome uguale a valore, diverso per ogni input. (il server php
 		// riceve ID => ID).
-		// Fare ciò è facilmente fattibile in javascript 
+		// Fare cio' e' facilmente fattibile in javascript 
 		function change() {
 
 			// trovo il menu drop-down
@@ -168,10 +168,10 @@
 			// per essere sicuro tolgo l'attributo hidden messo possibilmente precedentemente
 			temp.removeAttribute("hidden");
 
-			if (selection.value == "Studente") { // Gli studenti possono essere solo in una classe, quindi c'è bisogno di un radio button
+			if (selection.value == "Studente") { // Gli studenti possono essere solo in una classe, quindi c'e' bisogno di un radio button
 				type = "radio";
 
-			} else if (selection.value == "Docente") { // I docenti possono avere più classi, quindi checkbox
+			} else if (selection.value == "Docente") { // I docenti possono avere piu' classi, quindi checkbox
 				type = "checkbox"
 
 			} else if (selection.value == "Amministratore") { // gli amministratori non insegnano, quindi non hanno classi
@@ -193,10 +193,10 @@
 				// metto il nuovo attributo definito prima
 				classi[i].setAttribute("type", type);
 
-				if (selection.value == "Docente") { // se è docente metto come nome il valore della classe
+				if (selection.value == "Docente") { // se e' docente metto come nome il valore della classe
 					classi[i].setAttribute("name", "classe-" + classi[i].getAttribute("value"));
 
-				} else if (selection.value == "Studente") { // se è studente metto tutti i valori uguali
+				} else if (selection.value == "Studente") { // se e' studente metto tutti i valori uguali
 					classi[i].setAttribute("name", "classi");
 
 				}

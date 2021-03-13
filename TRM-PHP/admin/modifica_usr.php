@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
 	<title>Modifica utenti</title>
@@ -11,7 +11,7 @@
 
 <body>
 	<div>
-		<form action="modifica_utente.php" method="POST">
+		<form action="u_modifica_utente.php" method="POST">
 			<?php
 
 			include "../DBConnection.php";

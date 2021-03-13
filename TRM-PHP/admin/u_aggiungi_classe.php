@@ -10,7 +10,7 @@ if ($_POST["id"] and $_POST["desc"]) {
 	header("Location: classi.php");
 } else {
 
-	// ----- Non più utile, il controllo sulla presenza dei dati avviene attraverso html
+	// ----- Non piu' utile, il controllo sulla presenza dei dati avviene attraverso html
 	// se fallisce ritorno alla pagina precendente e segnalo un errore attraverso GET
 	header("Location: classi.php?e=true");
 }

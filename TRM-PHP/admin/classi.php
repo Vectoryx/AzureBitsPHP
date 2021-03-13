@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
 	<title>Gestione classi</title>
@@ -14,7 +14,7 @@
 </body>
 <div class="container">
 	<div class="float-start">
-		<form action="cancella_classe.php" method="POST">
+		<form action="u_cancella_classe.php" method="POST">
 			<?php
 			include ".\\..\\DBConnection.php";
 
@@ -44,7 +44,7 @@
 
 		<?php
 
-		echo "<pre class=lista-classi>";
+		echo "<pre class='lista-classi'>";
 
 		$query = "SELECT * FROM classi";
 		$sql_result = mysqli_query($conn, $query);
@@ -61,7 +61,7 @@
 
 	</div>
 	<div class="float-start">
-		<form method="POST" action="aggiungi_classe.php">
+		<form method="POST" action="u_aggiungi_classe.php">
 			<input type="text" name="id" required> Identificatore classe
 			<br>
 			<input type="text" name="desc" required> indirizzo della classe
@@ -69,7 +69,7 @@
 			<input type="submit" value="Aggiungi">
 		</form>
 		<p>
-			<?php echo isset($_GET["e"]) ? "uno o più valori mancanti" : ""; ?>
+			<?php echo isset($_GET["e"]) ? "uno o piu' valori mancanti" : ""; ?>
 		</p>
 	</div>
 </div>
