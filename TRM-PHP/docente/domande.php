@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<form method="POST" action="aggiungi_domanda.php" enctype="multipart/form-data">
+	<form method="POST" action="risposte.php" enctype="multipart/form-data">
 		<?php
 		session_start();
 
@@ -39,7 +39,7 @@
 		<br>
 		<!-- Da usare label per prompt -->
 		Testo della domanda <input type="text" name="testo" required> <br><br>
-		Punti da assegnare alla domanda <input type="number" name="punteggio" min="0" required> <br><br>
+		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
 
 		<label for="tipo"> Tipo di domanda </label>
@@ -49,7 +49,7 @@
 			<option value="2">Vero e False</option>
 		</select> <br><br>
 		<div id="numeri-input">
-			numero risposte <input type="number" min="0" name="n-risposte">
+			numero risposte <input type="number" min="0" max="15" value="1" name="n-risposte">
 		</div>
 		<br><br>
 		<input type="submit" value="Invia">

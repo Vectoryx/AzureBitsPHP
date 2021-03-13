@@ -9,7 +9,7 @@
 		[✔] Inserire classi con indirizzo e sezione
 		[-] Promuovere in blocco di una classe // da decidere se fare
 		[✔] Cancellare classi in blocco
-		[✖] Modificare gli studenti in una classe
+		[✔] Modificare gli studenti in una classe
 
 [✖] docenti
 	[✖] Domande e risposte
