@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/png" href="../img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../style/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -38,7 +39,8 @@
 
 		<br>
 		<!-- Da usare label per prompt -->
-		Testo della domanda <input type="text" name="testo" required> <br><br>
+		Testo della domanda <br> 
+		<textarea name="testo" cols=50 rows=10 required> </textarea> <br><br>
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
 
@@ -49,11 +51,29 @@
 			<option value="2">Vero e False</option>
 		</select> <br><br>
 		<div id="numeri-input">
-			numero risposte <input type="number" min="0" max="15" value="1" name="n-risposte">
+			numero risposte <input type="number" min="1" max="15" value="1" name="n-risposte">
 		</div>
 		<br><br>
 		<input type="submit" value="Invia">
 	</form>
+		<?php
+		
+		echo "<pre>";
+		$query = "SELECT * FROM domande;";
+		$sql_result = mysqli_query($conn, $query);
+
+		for($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+			$row = mysqli_fetch_assoc($sql_result);
+
+			echo "<div>";
+			echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a><br>";
+			echo "<img src='/{$row['img_url']}' style='width: 40px; height: 40px' />";
+			echo "</div>";
+		}
+		
+		echo "</pre>";
+		
+		?>
 
 	<script>
 		/**

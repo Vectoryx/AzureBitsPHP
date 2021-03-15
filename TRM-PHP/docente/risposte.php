@@ -7,7 +7,7 @@ include "../DBConnection.php";
 $creatore = $_SESSION["user"]["ID"];
 $testo = $_POST["testo"];
 $punteggio = $_POST["punteggio"];
-$img_url = "TRM-PHP\\\\images\\\\" . $_FILES["immagine"]["name"]; // quadruplo backslash perche anche sql tratta il backslash singolo come carattere escape 
+$img_url = "sources/TRM-PHP/images/" . $_FILES["immagine"]["name"];
 $tipo = $_POST["selezione-tipo"];
 
 // tutti questi campi devono esistere, quindi
@@ -26,6 +26,7 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/png" href="../img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../style/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -39,8 +40,8 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 			for ($i = 0; $i < $_POST["n-risposte"]; $i++) {
 
 				echo "<label for='risp-$i'> Risposta " . ($i + 1) . ") </label>";
-				echo "<input type='text' id='risp-$i' name='$i' required> ";
-				echo "<label for='chkbox-$i'> Corretta </label>";
+				echo "<br> <textarea cols=60 rows=7 id='risp-$i' name='$i' required> </textarea> ";
+				echo "<br> <label for='chkbox-$i'> Corretta </label>";
 				echo "<input type='checkbox' id='chkbox-$i' name='risp-$i-corretta'><br>";
 				echo "<label for='img'> Immagine relativa </label>";
 				echo "<input type='file' name='immagine-$i' id='img' accept='image/*'>";

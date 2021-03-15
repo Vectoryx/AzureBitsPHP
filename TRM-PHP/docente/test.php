@@ -24,8 +24,6 @@
 	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 		$row = mysqli_fetch_assoc($sql_result);
 		$testo = $row["testo"];
-		$materia = $row["id_materia"];
-		$argomento = $row["id_argomento"];
 		$punteggio = $row["punteggio"];
 		$id = $row["ID"];
 
