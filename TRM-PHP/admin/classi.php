@@ -27,7 +27,7 @@
 			$sql_result = mysqli_query($conn, $query);
 
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 
 				echo "<input type='checkbox' name='classe-{$row["ID"]}'> ";
 				echo "{$row["ID"]} {$row["indirizzo"]}<br>";
@@ -50,7 +50,7 @@
 		$sql_result = mysqli_query($conn, $query);
 
 		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-			$row = $sql_result->fetch_assoc();
+			$row = mysqli_fetch_assoc($sql_result);
 
 			echo "<a href='modifica_cls.php?id={$row["ID"]}'>{$row["ID"]}</a><br>";
 		}

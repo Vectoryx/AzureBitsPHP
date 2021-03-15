@@ -37,7 +37,7 @@
 
 			// stampo le effettive righe
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 
 				// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
 				echo "<input type='radio' class='opzione-classe' name='classi' value='{$row["ID"]}'> ";
@@ -53,7 +53,7 @@
 
 			// stampo le effettive righe
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 
 				// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
 				echo "<input type='checkbox' class='opzione-materia' name='materia-{$row["nome"]}' value='{$row["nome"]}'> ";
@@ -92,7 +92,7 @@
 				$sql_result = mysqli_query($conn, $query);
 
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 					echo "<input type='checkbox' name='doc-{$row["username"]}' value='{$row["ID"]}'> {$row["username"]}<br>";
 				}
 
@@ -102,7 +102,7 @@
 				$sql_result = mysqli_query($conn, $query);
 
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 					echo "<input type='checkbox' name='stud-{$row["username"]}' value='{$row["ID"]}'> {$row["username"]}<br>";
 				}
 
@@ -128,7 +128,7 @@
 			$sql_result = mysqli_query($conn, $query);
 
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 				echo "<a href='modifica_usr.php?user=doc-{$row["ID"]}'>{$row["username"]}</a><br>";
 			}
 
@@ -138,7 +138,7 @@
 			$sql_result = mysqli_query($conn, $query);
 
 			for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 				echo "<a href='modifica.php?user=stud-{$row["ID"]}'>{$row["username"]}</a><br>";
 			}
 

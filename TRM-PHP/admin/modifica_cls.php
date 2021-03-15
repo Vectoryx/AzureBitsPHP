@@ -18,7 +18,7 @@
 		$query = "SELECT * FROM classi WHERE ID='{$_GET["id"]}';";
 		$sql_result = mysqli_query($conn, $query);
 
-		$classe = $sql_result->fetch_assoc();
+		$classe = mysqli_fetch_assoc($sql_result);
 
 		echo "<input type='hidden' name='old_id' value='{$classe["ID"]}'>";
 		echo "Numero e sezione <input type='text' name='ID' placeholder='{$classe["ID"]}'><br>";
@@ -29,7 +29,7 @@
 		$sql_result = mysqli_query($conn, $query);
 
 		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-			$row = $sql_result->fetch_assoc();
+			$row = mysqli_fetch_assoc($sql_result);
 
 			echo "<input type='checkbox' name='stud-{$row["ID"]}' value='{$row["ID"]}' checked> {$row["username"]} <br>";
 		}

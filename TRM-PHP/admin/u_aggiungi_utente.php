@@ -26,7 +26,7 @@ if ($selezione and $username) {
 		// ottengo l'id del docente appena inserito
 		$query = "SELECT LAST_INSERT_ID() as ID;";
 		$sql_result = mysqli_query($conn, $query);
-		$row = $sql_result->fetch_assoc();
+		$row = mysqli_fetch_assoc($sql_result);
 		$ID_doc = $row["ID"];
 
 		// inserisco i collegamenti tra le classi e i docenti

@@ -24,9 +24,9 @@ function login($username, $password) {
 
 		// actual check
 		if ($sql_result && mysqli_num_rows($sql_result)) {
-			$row = $sql_result->fetch_assoc();
-			
-			$res=array("type" => $tables[$i], "ID" => $row["ID"], "hasLoggedOnce" => $row["hasLoggedOnce"]);
+			$row = mysqli_fetch_assoc($sql_result);
+
+			$res = array("type" => $tables[$i], "ID" => $row["ID"], "hasLoggedOnce" => $row["hasLoggedOnce"]);
 
 			if ($tables[$i] == "docenti") {
 				$res["admin"] = $row["admin"];
@@ -53,7 +53,6 @@ if (isset($_SESSION["user"]) and $_SESSION["user"]) {
 	// controllo se ha gia' fatto il login almeno una volta e cambiato la password
 	if ($_SESSION["user"]["hasLoggedOnce"] == 0) {
 		header("Location: rinnova_pwd.php");
-
 	} else {
 
 		// se è gia registrato ufficialmente (quindi hasLoggedOnce == 1)
