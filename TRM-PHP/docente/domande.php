@@ -26,11 +26,11 @@
 
 		$num_rows = mysqli_num_rows($sql_result);
 		if ($num_rows == 1) {
-			$row = $sql_result->fetch_assoc();
-			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked disabled>{$row["id_materia"]}<br>";
+			$row = mysqli_fetch_assoc($sql_result);
+			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked>{$row["id_materia"]}<br>";
 		} else {
 			for ($i = 0; $i < $num_rows; $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
 			}
 		}
@@ -39,7 +39,7 @@
 
 		<br>
 		<!-- Da usare label per prompt -->
-		Testo della domanda <br> 
+		Testo della domanda <br>
 		<textarea name="testo" cols=50 rows=10 required> </textarea> <br><br>
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
@@ -56,26 +56,34 @@
 		<br><br>
 		<input type="submit" value="Invia">
 	</form>
-		<?php
-		
-		echo "<pre>";
-		$query = "SELECT * FROM domande;";
-		$sql_result = mysqli_query($conn, $query);
+	<?php
 
-		for($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-			$row = mysqli_fetch_assoc($sql_result);
+	echo "<pre>";
+	$query = "SELECT * FROM domande;";
+	$sql_result = mysqli_query($conn, $query);
 
-			echo "<div>";
-			echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a><br>";
-			echo "<img src='/{$row['img_url']}' style='width: 40px; height: 40px' />";
-			echo "</div>";
-		}
-		
-		echo "</pre>";
-		
-		?>
+	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+		$row = mysqli_fetch_assoc($sql_result);
+
+		echo "<div>";
+		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a>";
+		echo "<img src='/{$row['img_url']}' alt='' style='width: 40px; height: 40px' />";
+		echo "</div>";
+	}
+
+	echo "</pre>";
+
+	?>
 
 	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			document.querySelectorAll('img').forEach(function(img) {
+				img.onerror = function() {
+					this.style.display = 'none';
+				};
+			})
+		});
+
 		/**
 		 * Rimuove/aggiunge l'opzione numeri-input per la gestione di quante risposte devo prevedere nella prossima pagina.
 		 * Questo perche' le domande vero/false hanno sempre due risposte

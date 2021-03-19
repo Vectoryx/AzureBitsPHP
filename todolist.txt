@@ -16,7 +16,6 @@
 		[✔] Aggiungere domande
 		[✔] Aggiungere relative risposta
 		[✖] Modificare domanda e risposta
-		[✖] Mostrare domande e risposte nella home-page
 	[✖] Test
 		[✖] Definire un test
 		[✖] Inserire domande nel test

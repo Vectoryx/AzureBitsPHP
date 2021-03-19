@@ -7,10 +7,10 @@ for ($i = 0; $i < $_POST["n-risposte"]; $i++) {
 	$img_url = "TRM-PHP/images/" . $_FILES["immagine-$i"]["name"];
 	
 	if ($img_url != "TRM-PHP/images/") { // quindi c'è un'immagine
-		move_uploaded_file($_FILES["immagine-$i"]["tmp_name"], "..\\images\\" . $_FILES["immagine-$i"]["name"]);
+		// move_uploaded_file($_FILES["immagine-$i"]["tmp_name"], "..\\images\\" . $_FILES["immagine-$i"]["name"]);
 	}
 	$ID = $_POST['ID_domanda'];
 	$query = "INSERT INTO risposte (testo, correzione, img_url, id_domanda) VALUES ('$testo', $correzzione, '$img_url', $ID);";
-	mysqli_query($conn, $query);
+	// mysqli_query($conn, $query);
 }
-header("Location: domande.php");
+// header("Location: domande.php");
