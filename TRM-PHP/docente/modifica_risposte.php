@@ -26,7 +26,7 @@ $materia = $_POST["materia"];
 // tutti questi campi devono esistere, quindi
 if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 
-	$query = "INSERT INTO domande (`testo`,  `img_url`, `punteggio`, `tipo`, `creatore`, `materia`) 
+	$query = "INSERT INTO domande (testo,  img_url, punteggio, tipo, creatore, materia) 
 						   VALUES ('$testo', '$img_url', $punteggio,  $tipo,  $creatore, '$materia');";
 	echo $query;
 	// mysqli_query($conn, $query);

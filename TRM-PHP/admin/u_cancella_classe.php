@@ -5,7 +5,7 @@ print_r($_POST);
 
 if ($_POST["op"] == "cancella") {
 	foreach ($_POST as $key => $value) {
-		$query = "DELETE FROM classi WHERE `ID`='$value';";
+		$query = "DELETE FROM classi WHERE ID='$value';";
 		mysqli_query($conn, $query);
 	}
 } else if ($_POST["op"] == "promuovi") {
