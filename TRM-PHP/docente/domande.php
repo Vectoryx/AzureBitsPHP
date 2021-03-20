@@ -41,6 +41,9 @@
 		<!-- Da usare label per prompt -->
 		Testo della domanda <br>
 		<textarea name="testo" cols=50 rows=10 required> </textarea> <br><br>
+		<div id="Vero" hidden>
+		<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+		</div>
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
 
@@ -92,17 +95,19 @@
 
 			// trovo il menu drop-down
 			var selection = document.getElementById("tipo");
-			var type = "";
 
 			// trovo la il tag che contiene le classi e gli input
-			let temp = document.getElementById("numeri-input");
+			let n_domande = document.getElementById("numeri-input");
+			let vero = document.getElementById("Vero");
 
 			// per essere sicuro tolgo l'attributo hidden messo possibilmente precedentemente
 
 			if (selection.value == 2) { // se e' un vero e false non c'e bisogno di specificare il numero di risposte
-				temp.setAttribute("hidden", "hidden");
+				n_domande.setAttribute("hidden", "hidden");
+				vero.removeAttribute("hidden");
 			} else {
-				temp.removeAttribute("hidden", "hidden");
+				vero.setAttribute("hidden", "hidden");
+				n_domande.removeAttribute("hidden");
 			}
 
 		}
