@@ -1,5 +1,5 @@
 <?php
-include "..\\DBConnection.php";
+include "../DBConnection.php";
 
 $selezione = $_POST["selezione-utenti"];
 $username = $_POST["usr"];

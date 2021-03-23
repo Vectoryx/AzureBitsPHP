@@ -16,7 +16,7 @@
 	<div class="float-start">
 		<form action="u_cancella_classe.php" method="POST">
 			<?php
-			include ".\\..\\DBConnection.php";
+			include "./../DBConnection.php";
 
 			session_start();
 

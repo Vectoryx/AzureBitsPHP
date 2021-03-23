@@ -12,7 +12,7 @@
 <body>
 	<?php
 
-	include "..\\DBConnection.php";
+	include "../DBConnection.php";
 
 
 	$query = "SELECT * FROM domande";

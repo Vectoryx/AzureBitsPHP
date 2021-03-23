@@ -15,20 +15,23 @@
 		<?php
 		session_start();
 
-		include "..\\DBConnection.php";
+		include "../DBConnection.php";
 
-		// Le materie sono selezionate automaticamente dalla materia insegnata, se esiste solo un'opzione metto un radio button checked e disabled
+		// Le materie sono selezionate automaticamente dalla materia insegnata
 		$query = "SELECT * FROM materie_docenti WHERE id_docente={$_SESSION["user"]["ID"]};";
 		$sql_result = mysqli_query($conn, $query);
 
 		echo "<br>";
+		// elenco e faccio selezionare la materia della domanda
 		echo "materie <br>";
 
 		$num_rows = mysqli_num_rows($sql_result);
+		// se esiste una sola opzione la seleziono di default
 		if ($num_rows == 1) {
 			$row = mysqli_fetch_assoc($sql_result);
 			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked>{$row["id_materia"]}<br>";
 		} else {
+			// se ne esiste più di una allora fornisco la selezione con i radio button
 			for ($i = 0; $i < $num_rows; $i++) {
 				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
@@ -41,9 +44,13 @@
 		<!-- Da usare label per prompt -->
 		Testo della domanda <br>
 		<textarea name="testo" cols=50 rows=10 required> </textarea> <br><br>
+		<!-- definisco un div per poter mostrare e nascondere sia il testo che l'input
+			fornisco un metodo veloce per rispondere alle domande vero o falso -->
 		<div id="Vero" hidden>
-		<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+			<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+			<br><br>
 		</div>
+
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
 		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
 
@@ -53,18 +60,22 @@
 			<option value="1">Testo bucato</option>
 			<option value="2">Vero e False</option>
 		</select> <br><br>
+		<!--  definisco un div per poter mostrare e nascondere sia il testo che l'input
+			se è una domanda vero e falso il numero di risposte è già definito -->
 		<div id="numeri-input">
 			numero risposte <input type="number" min="1" max="15" value="1" name="n-risposte">
 		</div>
-		<br><br>
+
 		<input type="submit" value="Invia">
 	</form>
 	<?php
 
 	echo "<pre>";
+
 	$query = "SELECT * FROM domande;";
 	$sql_result = mysqli_query($conn, $query);
 
+	// stampo le domande già inserite come link per modificarle
 	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 		$row = mysqli_fetch_assoc($sql_result);
 
@@ -79,6 +90,7 @@
 	?>
 
 	<script>
+		// gestisce domande senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
 		document.addEventListener("DOMContentLoaded", function(event) {
 			document.querySelectorAll('img').forEach(function(img) {
 				img.onerror = function() {

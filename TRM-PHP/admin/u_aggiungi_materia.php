@@ -1,6 +1,6 @@
 <?php
 
-include "..\\DBConnection.php";
+include "../DBConnection.php";
 
 if ($_POST["materia"]) {
 	$mat = $_POST["materia"];

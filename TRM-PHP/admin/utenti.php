@@ -24,7 +24,7 @@
 
 
 			<?php
-			include ".\\..\\DBConnection.php";
+			include "../DBConnection.php";
 
 			session_start();
 
