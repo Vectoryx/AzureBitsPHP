@@ -75,7 +75,7 @@
 	<br>
 
 	<div>
-		<input type="search" name="ricerca" id="ricerca_domande" oninput="search()">
+		<input type="search" placeholder="cerca" name="ricerca" id="ricerca_domande" oninput="search()">
 
 		<?php
 
