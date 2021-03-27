@@ -84,10 +84,11 @@
 	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 		$row = mysqli_fetch_assoc($sql_result);
 
-		echo "<div>";
-		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a>";
+		echo "<div style='height: 60px'>";
+		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
 		echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
 		echo "</div>";
+		echo "<hr>";
 	}
 
 	echo "</pre>";

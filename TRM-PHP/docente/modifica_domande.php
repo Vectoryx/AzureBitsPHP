@@ -26,6 +26,12 @@
 			$sql_result = mysqli_query($conn, $query);
 			$old = mysqli_fetch_assoc($sql_result);
 
+			if (!isset($old)) {
+				$query = "SELECT * FROM domande WHERE ID={$_GET['id']}";
+				$sql_result = mysqli_query($conn, $query);
+				$old = mysqli_fetch_assoc($sql_result);
+			}
+
 			// Le materie sono selezionate automaticamente dalla materia insegnata, se esiste solo un'opzione metto un radio button checked e disabled
 			$query = "SELECT * FROM materie_docenti WHERE id_docente={$_SESSION["user"]["ID"]};";
 			$sql_result = mysqli_query($conn, $query);
@@ -77,7 +83,7 @@
 
 			<div id="numeri-input">
 				<!-- infine reinserisco il precedente di risposte -->
-				numero risposte <input type="number" min="1" max="15" value="<?php echo $old['num'] ?>" name="n-risposte">
+				numero risposte <input type="number" min="1" max="15" value="<?php echo isset($old['num']) ? $old['num'] : '' ?>" name="n-risposte" required>
 			</div>
 			<br><br>
 			<input type="submit" value="Invia">

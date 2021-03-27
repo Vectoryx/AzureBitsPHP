@@ -17,7 +17,7 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 
 	$query = "INSERT INTO domande  ( testo,    img_url,    punteggio,   tipo,   creatore,   materia)
 							VALUES ('$testo', '$img_url', $punteggio,  $tipo,  $creatore, '$materia');";
-	// mysqli_query($conn, $query);
+	mysqli_query($conn, $query);
 	move_uploaded_file($_FILES["immagine"]["tmp_name"], "../images/" . $_FILES["immagine"]["name"]);
 }
 

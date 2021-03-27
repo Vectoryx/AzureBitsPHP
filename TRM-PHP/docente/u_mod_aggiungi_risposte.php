@@ -12,11 +12,14 @@ echo "</pre>"; */
 for ($i = 0; $i < $_POST["n-risposte"]; $i++) {
 	$testo = $_POST[$i];
 	$correzzione = isset($_POST["risp-$i-corretta"]) ? 1 : 0;
-	$img_url = "sources/TRM-PHP/images/" . $_FILES["immagine-$i"]["name"];
 
 
 	if ($_FILES["immagine-$i"]["error"] != 0) {
-		$img_url = $_POST["img-$i"];
+		if (isset($_POST["img-$i"])) {
+			$img_url = $_POST["img-$i"];
+		} else {
+			$img_url = "sources/TRM-PHP/images/";
+		}
 	} else {
 		$img_url = "sources/TRM-PHP/images/" . $_FILES["immagine-$i"]["name"];
 	}
@@ -26,7 +29,7 @@ for ($i = 0; $i < $_POST["n-risposte"]; $i++) {
 	}
 	$ID = $_POST['ID_domanda'];
 	$query = "INSERT INTO risposte (testo, correzione, img_url, id_domanda) VALUES ('$testo', $correzzione, '$img_url', $ID);";
-/* 	echo $query;
+	/* 	echo $query;
 	echo "<br>"; */
 	mysqli_query($conn, $query);
 }

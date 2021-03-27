@@ -19,8 +19,8 @@ $vero = isset($_POST['Vero']);
 // tutti questi campi devono esistere, quindi
 if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 
-	$query = "INSERT INTO domande (testo, img_url, punteggio, tipo, creatore, materia) 
-						   VALUES ('$testo', '$img_url', $punteggio, $tipo, $creatore, '$materia');";
+	$query = "INSERT INTO domande (testo, img_url, punteggio, tipo, creatore, materia, precedente) 
+						   VALUES ('$testo', '$img_url', $punteggio, $tipo, $creatore, '$materia', {$_POST['ID_domanda']});";
 	mysqli_query($conn, $query);
 	// "scarico" l'immagine richiesta nel form e la metto nella cartella source/TRM-PHP/images
 	move_uploaded_file($_FILES["immagine"]["tmp_name"], "../images/" . $_FILES["immagine"]["name"]);
@@ -28,7 +28,7 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 // Non è necessario caricare una pagina intera per chiederti un checkbox, quindi lo faccio nella pagina precedente
 if ($tipo == 2) {
 
-	$query = "INSERT INTO risposte ( testo, correzione, id_domanda) VALUES ( '', $vero, " . mysqli_insert_id($conn) . ")";
+	$query = "INSERT INTO risposte ( testo, correzione, id_domanda, ordine_modifica) VALUES ( '', $vero, " . mysqli_insert_id($conn) . ");";
 	header("Location: domande.php");
 }
 ?>
