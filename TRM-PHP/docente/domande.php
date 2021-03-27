@@ -47,7 +47,7 @@
 		<!-- definisco un div per poter mostrare e nascondere sia il testo che l'input
 			fornisco un metodo veloce per rispondere alle domande vero o falso -->
 		<div id="Vero" hidden>
-			<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+			<label for="v&f">E' Vera?</label><input id="v&f" type="checkbox" name="Vero">
 			<br><br>
 		</div>
 
@@ -62,7 +62,7 @@
 		<select name="selezione-tipo" id="tipo" onchange="change()">
 			<option value="0" selected>Risposta multipla</option>
 			<option value="1">Testo bucato</option>
-			<option value="2">Vero e False</option>
+			<option value="2">Vero e Falso</option>
 		</select> <br><br>
 		<!--  definisco un div per poter mostrare e nascondere sia il testo che l'input
 			se e' una domanda vero e falso il numero di risposte e' gia' definito -->
@@ -119,6 +119,11 @@
 					domanda.children[0].click();
 				});
 			}
+		});
+
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			change();
 		});
 
 		/**
