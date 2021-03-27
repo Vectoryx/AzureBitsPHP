@@ -23,7 +23,7 @@
 				$sql_result = mysqli_query($conn, $query);
 
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 					if ($row["id_classe"] == $classe) {
 						return true;
 					}
@@ -39,7 +39,7 @@
 				$sql_result = mysqli_query($conn, $query);
 
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 					if ($row["id_materia"] == $materia) {
 						return true;
 					}
@@ -57,7 +57,7 @@
 			$query = "SELECT * FROM $table WHERE ID=$ID;";
 			$sql_result = mysqli_query($conn, $query);
 
-			$user = $sql_result->fetch_assoc();
+			$user = mysqli_fetch_assoc($sql_result);
 
 			// Per decidere che routine eseguire
 			echo "<input type='hidden' name='type' value='$table'>";
@@ -79,7 +79,7 @@
 
 				// stampo le effettive righe
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 
 					// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
 					echo "<input type='checkbox' class='opzione-classe' name='classe-{$row["ID"]}' value='{$row["ID"]}'";
@@ -98,7 +98,7 @@
 
 				// stampo le effettive righe
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 
 					// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
 					echo "<input type='checkbox' class='opzione-materia' name='materia-{$row["nome"]}' value='{$row["nome"]}'";
@@ -118,7 +118,7 @@
 
 				// stampo le effettive righe
 				for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-					$row = $sql_result->fetch_assoc();
+					$row = mysqli_fetch_assoc($sql_result);
 
 					// ogni input ha value che rappresenta la classe, nome e tipo variano a seconda del tipo di utente
 					echo "<input type='radio' class='opzione-classe' name='classi' value='{$row["ID"]}'";

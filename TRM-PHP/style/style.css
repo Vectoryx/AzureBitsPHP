@@ -8,13 +8,10 @@
 	border-radius: 2%;
 }
 
-.table-header {
-	border-bottom: 2px solid black;
+textarea {
+	resize: none;
 }
 
-html,
-body {
-	background-color: #fefefe;
-	height: 100%;
-	margin: 0;
+.table-header {
+	border-bottom: 2px solid black;
 }

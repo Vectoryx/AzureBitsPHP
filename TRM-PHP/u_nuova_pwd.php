@@ -17,12 +17,12 @@ if (isset($_POST["pwd_ori"]) and isset($_POST["pwd_cpy"])) {
 
 		// spedisco l'utente nell'home page corretta
 		if ($_SESSION["user"]["type"] == "studenti") {
-			header("Location: studente\\home.html");
+			header("Location: studente/home.html");
 		} else {
 			if ($_SESSION["user"]["admin"]) {
-				header("Location: admin\\home.html");
+				header("Location: admin/home.html");
 			} else {
-				header("Location: docente\\home.html");
+				header("Location: docente/home.html");
 			}
 		}
 	}

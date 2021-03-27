@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 	<link rel="icon" type="image/png" href="../img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="../style/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -14,22 +15,25 @@
 		<?php
 		session_start();
 
-		include "..\\DBConnection.php";
+		include "../DBConnection.php";
 
-		// Le materie sono selezionate automaticamente dalla materia insegnata, se esiste solo un'opzione metto un radio button checked e disabled
+		// Le materie sono selezionate automaticamente dalla materia insegnata
 		$query = "SELECT * FROM materie_docenti WHERE id_docente={$_SESSION["user"]["ID"]};";
 		$sql_result = mysqli_query($conn, $query);
 
 		echo "<br>";
+		// elenco e faccio selezionare la materia della domanda
 		echo "materie <br>";
 
 		$num_rows = mysqli_num_rows($sql_result);
+		// se esiste una sola opzione la seleziono di default
 		if ($num_rows == 1) {
-			$row = $sql_result->fetch_assoc();
-			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked disabled>{$row["id_materia"]}<br>";
+			$row = mysqli_fetch_assoc($sql_result);
+			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked>{$row["id_materia"]}<br>";
 		} else {
+			// se ne esiste più di una allora fornisco la selezione con i radio button
 			for ($i = 0; $i < $num_rows; $i++) {
-				$row = $sql_result->fetch_assoc();
+				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
 			}
 		}
@@ -38,9 +42,21 @@
 
 		<br>
 		<!-- Da usare label per prompt -->
-		Testo della domanda <input type="text" name="testo" required> <br><br>
+		Testo della domanda <br>
+		<textarea name="testo" cols=50 rows=10 required></textarea> <br><br>
+		<!-- definisco un div per poter mostrare e nascondere sia il testo che l'input
+			fornisco un metodo veloce per rispondere alle domande vero o falso -->
+		<div id="Vero" hidden>
+			<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+			<br><br>
+		</div>
+
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
-		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
+		<div onclick="click_image()">
+			immagine relativa
+			<img style="max-height: 100px; max-width: 100px" src="/" alt="immagina inserita" id="img_show">
+		</div>
+		<input type="file" name="immagine" accept="image/*" id="image_selector" oninput="show_img()"><br><br>
 
 		<label for="tipo"> Tipo di domanda </label>
 		<select name="selezione-tipo" id="tipo" onchange="change()">
@@ -48,14 +64,48 @@
 			<option value="1">Testo bucato</option>
 			<option value="2">Vero e False</option>
 		</select> <br><br>
+		<!--  definisco un div per poter mostrare e nascondere sia il testo che l'input
+			se è una domanda vero e falso il numero di risposte è già definito -->
 		<div id="numeri-input">
-			numero risposte <input type="number" min="0" max="15" value="1" name="n-risposte">
+			numero risposte <input type="number" min="1" max="15" value="1" name="n-risposte">
 		</div>
-		<br><br>
+
 		<input type="submit" value="Invia">
 	</form>
 
+	<?php
+
+	echo "<pre>";
+
+	$query = "SELECT * FROM domande;";
+	$sql_result = mysqli_query($conn, $query);
+
+	// stampo le domande già inserite come link per modificarle
+	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+		$row = mysqli_fetch_assoc($sql_result);
+
+		echo "<div style='height: 60px'>";
+		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
+		echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
+		echo "</div>";
+		echo "<hr>";
+	}
+
+	echo "</pre>";
+
+	?>
+
+	<script src="img_manager.js" crossorigin="anonymous"></script>
 	<script>
+		// gestisce domande senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
+		document.addEventListener("DOMContentLoaded", function(event) {
+			document.querySelectorAll("img").forEach(function(img) {
+				img.onerror = function() {
+					this.style.display = "none";
+				};
+			});
+		});
+
 		/**
 		 * Rimuove/aggiunge l'opzione numeri-input per la gestione di quante risposte devo prevedere nella prossima pagina.
 		 * Questo perche' le domande vero/false hanno sempre due risposte
@@ -64,17 +114,19 @@
 
 			// trovo il menu drop-down
 			var selection = document.getElementById("tipo");
-			var type = "";
 
 			// trovo la il tag che contiene le classi e gli input
-			let temp = document.getElementById("numeri-input");
+			let n_domande = document.getElementById("numeri-input");
+			let vero = document.getElementById("Vero");
 
 			// per essere sicuro tolgo l'attributo hidden messo possibilmente precedentemente
 
 			if (selection.value == 2) { // se e' un vero e false non c'e bisogno di specificare il numero di risposte
-				temp.setAttribute("hidden", "hidden");
+				n_domande.setAttribute("hidden", "hidden");
+				vero.removeAttribute("hidden");
 			} else {
-				temp.removeAttribute("hidden", "hidden");
+				vero.setAttribute("hidden", "hidden");
+				n_domande.removeAttribute("hidden");
 			}
 
 		}
