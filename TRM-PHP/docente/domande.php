@@ -31,7 +31,7 @@
 			$row = mysqli_fetch_assoc($sql_result);
 			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked>{$row["id_materia"]}<br>";
 		} else {
-			// se ne esiste più di una allora fornisco la selezione con i radio button
+			// se ne esiste piu' di una allora fornisco la selezione con i radio button
 			for ($i = 0; $i < $num_rows; $i++) {
 				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
@@ -47,7 +47,7 @@
 		<!-- definisco un div per poter mostrare e nascondere sia il testo che l'input
 			fornisco un metodo veloce per rispondere alle domande vero o falso -->
 		<div id="Vero" hidden>
-			<label for="v&f"> VERO FALSO </label><input id="v&f" type="checkbox" name="Vero">
+			<label for="v&f">E' Vera?</label><input id="v&f" type="checkbox" name="Vero">
 			<br><br>
 		</div>
 
@@ -62,38 +62,42 @@
 		<select name="selezione-tipo" id="tipo" onchange="change()">
 			<option value="0" selected>Risposta multipla</option>
 			<option value="1">Testo bucato</option>
-			<option value="2">Vero e False</option>
+			<option value="2">Vero e Falso</option>
 		</select> <br><br>
 		<!--  definisco un div per poter mostrare e nascondere sia il testo che l'input
-			se è una domanda vero e falso il numero di risposte è già definito -->
+			se e' una domanda vero e falso il numero di risposte e' gia' definito -->
 		<div id="numeri-input">
 			numero risposte <input type="number" min="1" max="15" value="1" name="n-risposte">
 		</div>
 
 		<input type="submit" value="Invia">
 	</form>
+	<br>
 
-	<?php
+	<div>
+		<input type="search" placeholder="cerca" name="ricerca" id="ricerca_domande" oninput="search()">
 
-	echo "<pre>";
+		<?php
 
-	$query = "SELECT * FROM domande;";
-	$sql_result = mysqli_query($conn, $query);
+		echo "<pre id='lista-domade'>";
 
-	// stampo le domande già inserite come link per modificarle
-	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-		$row = mysqli_fetch_assoc($sql_result);
+		$query = "SELECT * FROM domande ORDER BY testo ASC;";
+		$sql_result = mysqli_query($conn, $query);
 
-		echo "<div style='height: 60px'>";
-		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
-		echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
-		echo "</div>";
-		echo "<hr>";
-	}
+		// stampo le domande gia' inserite come link per modificarle
+		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+			$row = mysqli_fetch_assoc($sql_result);
 
-	echo "</pre>";
+			echo "<div id='dom-$i' class='container-domanda'>";
+			echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
+			echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
+			echo "</div>";
+		}
 
-	?>
+		echo "</pre>";
+
+		?>
+	</div>
 
 	<script src="img_manager.js" crossorigin="anonymous"></script>
 	<script>
@@ -104,6 +108,22 @@
 					this.style.display = "none";
 				};
 			});
+		});
+
+		// rende tutto il div che contiene la domanda capace di essere cliccato
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var domande = document.getElementsByClassName("container-domanda");
+			for (let i = 0; i < domande.length; i++) {
+				let domanda = domande[i];
+				domanda.addEventListener("click", function(event) {
+					domanda.children[0].click();
+				});
+			}
+		});
+
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			change();
 		});
 
 		/**
@@ -129,6 +149,34 @@
 				n_domande.removeAttribute("hidden");
 			}
 
+		}
+
+		/**
+		 * cerca la risposta tra quelle nella pagina tramite testo dopo faro' anche, punteggio, creatore e materia
+		 */
+		function search() {
+			var domande = document.getElementsByClassName("container-domanda");
+
+			var da_cercare = document.getElementById("ricerca_domande");
+
+			var aghi = da_cercare.value.split(" ");
+
+			for (let i = 0; i < domande.length; i++) {
+				for (let j = 0; j < aghi.length; j++) {
+					// per ogni domanda prendi tutti i tag contenuti, dei quali il primo e' il tag a il quale ha come contenuto il testo della domanda 
+					var pagliaio = domande[i].children[0].innerHTML.toLocaleLowerCase();
+
+					var ago = aghi[j].toLocaleLowerCase()
+
+					if (pagliaio.indexOf(ago) < 0) {
+						console.log(pagliaio + " " + ago);
+						domande[i].style.display = "none";
+					} else {
+						domande[i].style.display = "block";
+					}
+				}
+
+			}
 		}
 	</script>
 

@@ -15,3 +15,11 @@ textarea {
 .table-header {
 	border-bottom: 2px solid black;
 }
+
+.container-domanda {
+	height: 60px;
+	border-radius: 4px;
+	border: 2px solid grey;
+	margin: 2px;
+	padding: 2px; 
+}

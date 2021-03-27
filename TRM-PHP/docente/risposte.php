@@ -21,7 +21,7 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 	move_uploaded_file($_FILES["immagine"]["tmp_name"], "../images/" . $_FILES["immagine"]["name"]);
 }
 
-// Non è necessario caricare una pagina intera per chiederti un checkbox, quindi lo faccio nella pagina precedente
+// Non e' necessario caricare una pagina intera per chiederti un checkbox, quindi lo faccio nella pagina precedente
 if ($tipo == 2) {
 
 	$query = "INSERT INTO risposte ( testo, correzione, id_domanda) VALUES ( '', $vero, " . mysqli_insert_id($conn) . ")";
@@ -58,8 +58,8 @@ if ($tipo == 2) {
 				echo "<label for='risp-$i'> Risposta " . ($i + 1) . ") </label>";
 				echo "<br> <textarea cols=60 rows=7 id='risp-$i' name='$i' required></textarea> ";
 
-				// se è a risposta multipla mostro un checkbox per la correttezza della risposta,
-				// se invece è un testo bucato chiedo un numero per l'ordine delle risposte nel testo
+				// se e' a risposta multipla mostro un checkbox per la correttezza della risposta,
+				// se invece e' un testo bucato chiedo un numero per l'ordine delle risposte nel testo
 				if ($tipo == 0) {
 					echo "<br> <label for='chkbox-$i'> Corretta </label>";
 					echo "<input type='checkbox' id='chkbox-$i' name='risp-$i-corretta'><br>";

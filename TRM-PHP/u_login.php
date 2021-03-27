@@ -55,7 +55,7 @@ if (isset($_SESSION["user"]) and $_SESSION["user"]) {
 		header("Location: rinnova_pwd.php");
 	} else {
 
-		// se è gia registrato ufficialmente (quindi hasLoggedOnce == 1)
+		// se e' gia registrato ufficialmente (quindi hasLoggedOnce == 1)
 		// spedisco l'utente nell'home page corretta
 		if ($_SESSION["user"]["type"] == "studenti") {
 			header("Location: studente/home.html");

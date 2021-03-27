@@ -18,7 +18,7 @@
 
 			include "../DBConnection.php";
 
-			// ottengo la domanda da modificare più il numero di risposte
+			// ottengo la domanda da modificare piu' il numero di risposte
 			$query = "SELECT domande.*, COUNT(*) AS num 
 					  FROM domande JOIN risposte ON (risposte.id_domanda = domande.ID) 
 					  GROUP BY domande.ID 
@@ -46,7 +46,7 @@
 				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row['id_materia']}' checked>{$row['id_materia']}<br>";
 			} else {
-				// se ne esiste più di una allora fornisco la selezione con i radio button
+				// se ne esiste piu' di una allora fornisco la selezione con i radio button
 				for ($i = 0; $i < $num_rows; $i++) {
 					$row = mysqli_fetch_assoc($sql_result);
 					echo "<input type='radio' name='materia' value='{$row['id_materia']}'";
@@ -62,6 +62,10 @@
 			Testo della domanda <br>
 			<textarea name="testo" cols=50 rows=10><?php echo $old['testo'] ?></textarea> <br><br>
 			Punti da assegnare alla domanda <input type="number" value="<?php echo $old['punteggio'] ?>" name="punteggio" min="0"> <br><br> <!-- inserisco il vecchio unteggio -->
+			<div id="Vero" hidden>
+				<label for="v&f" >E' Vera?</label><input id="v&f" type="checkbox" name="Vero">
+				<br><br>
+			</div>
 
 			<input type="hidden" name="img" value="<?php echo $old['img_url'] ?>">
 			<!-- non posso mettere un valore all'input file per motivi di sicurezza,
@@ -78,12 +82,12 @@
 				<!-- come al solito seleziono nel dropdown il valore usato precedentemente -->
 				<option value="0" <?php echo $old['tipo'] == 0 ? "selected" : "" ?>>Risposta multipla</option>
 				<option value="1" <?php echo $old['tipo'] == 1 ? "selected" : "" ?>>Testo bucato</option>
-				<option value="2" <?php echo $old['tipo'] == 2 ? "selected" : "" ?>>Vero e False</option>
+				<option value="2" <?php echo $old['tipo'] == 2 ? "selected" : "" ?>>Vero e Falso</option>
 			</select> <br><br>
 
 			<div id="numeri-input">
 				<!-- infine reinserisco il precedente di risposte -->
-				numero risposte <input type="number" min="1" max="15" value="<?php echo isset($old['num']) ? $old['num'] : '' ?>" name="n-risposte" required>
+				numero risposte <input type="number" min="1" max="15" value="<?php echo isset($old['num']) ? $old['num'] : 1 ?>" name="n-risposte" >
 			</div>
 			<br><br>
 			<input type="submit" value="Invia">
@@ -100,6 +104,35 @@
 					};
 				});
 			});
+
+			document.addEventListener("DOMContentLoaded", function(event) {
+				change();
+			});
+
+			/**
+			 * Rimuove/aggiunge l'opzione numeri-input per la gestione di quante risposte devo prevedere nella prossima pagina.
+			 * Questo perche' le domande vero/false hanno sempre due risposte
+			 */
+			function change() {
+
+				// trovo il menu drop-down
+				var selection = document.getElementById("tipo");
+
+				// trovo la il tag che contiene le classi e gli input
+				let n_domande = document.getElementById("numeri-input");
+				let vero = document.getElementById("Vero");
+
+				// per essere sicuro tolgo l'attributo hidden messo possibilmente precedentemente
+
+				if (selection.value == 2) { // se e' un vero e false non c'e bisogno di specificare il numero di risposte
+					n_domande.setAttribute("hidden", "hidden");
+					vero.removeAttribute("hidden");
+				} else {
+					vero.setAttribute("hidden", "hidden");
+					n_domande.removeAttribute("hidden");
+				}
+
+			}
 
 			fix_default_img();
 		</script>
