@@ -31,7 +31,7 @@
 			$row = mysqli_fetch_assoc($sql_result);
 			echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required checked>{$row["id_materia"]}<br>";
 		} else {
-			// se ne esiste più di una allora fornisco la selezione con i radio button
+			// se ne esiste piu' di una allora fornisco la selezione con i radio button
 			for ($i = 0; $i < $num_rows; $i++) {
 				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row["id_materia"]}' required>{$row["id_materia"]}<br>";
@@ -65,7 +65,7 @@
 			<option value="2">Vero e False</option>
 		</select> <br><br>
 		<!--  definisco un div per poter mostrare e nascondere sia il testo che l'input
-			se è una domanda vero e falso il numero di risposte è già definito -->
+			se e' una domanda vero e falso il numero di risposte e' gia' definito -->
 		<div id="numeri-input">
 			numero risposte <input type="number" min="1" max="15" value="1" name="n-risposte">
 		</div>
@@ -84,7 +84,7 @@
 		$query = "SELECT * FROM domande ORDER BY testo ASC;";
 		$sql_result = mysqli_query($conn, $query);
 
-		// stampo le domande già inserite come link per modificarle
+		// stampo le domande gia' inserite come link per modificarle
 		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
 			$row = mysqli_fetch_assoc($sql_result);
 
@@ -147,7 +147,7 @@
 		}
 
 		/**
-		 * cerca la risposta tra quelle nella pagina tramite testo dopo farò anche, punteggio, creatore e materia
+		 * cerca la risposta tra quelle nella pagina tramite testo dopo faro' anche, punteggio, creatore e materia
 		 */
 		function search() {
 			var domande = document.getElementsByClassName("container-domanda");
@@ -158,7 +158,7 @@
 
 			for (let i = 0; i < domande.length; i++) {
 				for (let j = 0; j < aghi.length; j++) {
-					// per ogni domanda prendi tutti i tag contenuti, dei quali il primo è il tag a il quale ha come contenuto il testo della domanda 
+					// per ogni domanda prendi tutti i tag contenuti, dei quali il primo e' il tag a il quale ha come contenuto il testo della domanda 
 					var pagliaio = domande[i].children[0].innerHTML.toLocaleLowerCase();
 
 					var ago = aghi[j].toLocaleLowerCase()

@@ -32,7 +32,7 @@
 				<div class="text-danger">
 					<?php
 
-					// segnalo se l'autenticazione è fallita
+					// segnalo se l'autenticazione e' fallita
 					if (isset($_GET["e"])) {
 						echo "Autenticazione fallita username o password non corretti!";
 					}

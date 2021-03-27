@@ -18,7 +18,7 @@
 
 			include "../DBConnection.php";
 
-			// ottengo la domanda da modificare più il numero di risposte
+			// ottengo la domanda da modificare piu' il numero di risposte
 			$query = "SELECT domande.*, COUNT(*) AS num 
 					  FROM domande JOIN risposte ON (risposte.id_domanda = domande.ID) 
 					  GROUP BY domande.ID 
@@ -46,7 +46,7 @@
 				$row = mysqli_fetch_assoc($sql_result);
 				echo "<input type='radio' name='materia' value='{$row['id_materia']}' checked>{$row['id_materia']}<br>";
 			} else {
-				// se ne esiste più di una allora fornisco la selezione con i radio button
+				// se ne esiste piu' di una allora fornisco la selezione con i radio button
 				for ($i = 0; $i < $num_rows; $i++) {
 					$row = mysqli_fetch_assoc($sql_result);
 					echo "<input type='radio' name='materia' value='{$row['id_materia']}'";
