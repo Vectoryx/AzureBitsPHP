@@ -38,6 +38,7 @@ CREATE TABLE `domande` (
   `tipo` int(11) DEFAULT NULL,
   `creatore` int(11) DEFAULT NULL,
   `materia` varchar(50) DEFAULT NULL,
+  `ordine_modifica` int(11) DEFAULT 0,
   PRIMARY KEY (`ID`),
   KEY `creatore` (`creatore`),
   KEY `materia` (`materia`),
