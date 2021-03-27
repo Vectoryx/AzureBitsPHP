@@ -72,28 +72,32 @@
 
 		<input type="submit" value="Invia">
 	</form>
+	<br>
 
-	<?php
+	<div>
+		<input type="search" name="ricerca" id="ricerca_domande" oninput="search()">
 
-	echo "<pre>";
+		<?php
 
-	$query = "SELECT * FROM domande;";
-	$sql_result = mysqli_query($conn, $query);
+		echo "<pre id='lista-domade'>";
 
-	// stampo le domande già inserite come link per modificarle
-	for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
-		$row = mysqli_fetch_assoc($sql_result);
+		$query = "SELECT * FROM domande ORDER BY testo ASC;";
+		$sql_result = mysqli_query($conn, $query);
 
-		echo "<div style='height: 60px'>";
-		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
-		echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
-		echo "</div>";
-		echo "<hr>";
-	}
+		// stampo le domande già inserite come link per modificarle
+		for ($i = 0; $i < mysqli_num_rows($sql_result); $i++) {
+			$row = mysqli_fetch_assoc($sql_result);
 
-	echo "</pre>";
+			echo "<div id='dom-$i' class='container-domanda'>";
+			echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a> <br>";
+			echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
+			echo "</div>";
+		}
 
-	?>
+		echo "</pre>";
+
+		?>
+	</div>
 
 	<script src="img_manager.js" crossorigin="anonymous"></script>
 	<script>
@@ -104,6 +108,17 @@
 					this.style.display = "none";
 				};
 			});
+		});
+
+		// rende tutto il div che contiene la domanda capace di essere cliccato
+		document.addEventListener("DOMContentLoaded", function(event) {
+			var domande = document.getElementsByClassName("container-domanda");
+			for (let i = 0; i < domande.length; i++) {
+				let domanda = domande[i];
+				domanda.addEventListener("click", function(event) {
+					domanda.children[0].click();
+				});
+			}
 		});
 
 		/**
@@ -129,6 +144,34 @@
 				n_domande.removeAttribute("hidden");
 			}
 
+		}
+
+		/**
+		 * cerca la risposta tra quelle nella pagina tramite testo dopo farò anche, punteggio, creatore e materia
+		 */
+		function search() {
+			var domande = document.getElementsByClassName("container-domanda");
+
+			var da_cercare = document.getElementById("ricerca_domande");
+
+			var aghi = da_cercare.value.split(" ");
+
+			for (let i = 0; i < domande.length; i++) {
+				for (let j = 0; j < aghi.length; j++) {
+					// per ogni domanda prendi tutti i tag contenuti, dei quali il primo è il tag a il quale ha come contenuto il testo della domanda 
+					var pagliaio = domande[i].children[0].innerHTML.toLocaleLowerCase();
+
+					var ago = aghi[j].toLocaleLowerCase()
+
+					if (pagliaio.indexOf(ago) < 0) {
+						console.log(pagliaio + " " + ago);
+						domande[i].style.display = "none";
+					} else {
+						domande[i].style.display = "block";
+					}
+				}
+
+			}
 		}
 	</script>
 
