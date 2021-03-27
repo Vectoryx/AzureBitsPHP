@@ -48,15 +48,15 @@ if ($tipo == 2) {
 	<form method="POST" action="u_mod_aggiungi_risposte.php" enctype="multipart/form-data">
 		<?php
 
+		echo "<input type='hidden' name='ID_domanda' value='" . mysqli_insert_id($conn) . "'>";
+
 		$query = "SELECT * FROM risposte WHERE id_domanda={$_POST['ID_domanda']}";
 		$sql_result = mysqli_query($conn, $query);
-
-		echo "<input type='hidden' name='ID_domanda' value='" . mysqli_insert_id($conn) . "'>";
 
 		if ($tipo != 2) {
 			// se non e' una domanda vero falso stampo le risposte precedenti e passo un paio di informazioni per inserire le domande
 
-			echo "<input type='hidden' name='n-risposte' value='{$_POST['n-risposte']}'>";
+			echo "<input type='hidden' id='n-risposte' name='n-risposte' value='{$_POST['n-risposte']}'>";
 
 			for ($i = 0; $i < $_POST["n-risposte"]; $i++) {
 				$old = mysqli_fetch_assoc($sql_result);
@@ -65,22 +65,35 @@ if ($tipo == 2) {
 
 				// stampo il testo della risposta
 				echo "<label for='risp-$i'> Risposta " . ($i + 1) . ") </label>";
-				echo "<br> <textarea cols=60 rows=7 id='risp-$i' name='$i' required>{$old['testo']}</textarea> ";
+				echo "<br> <textarea cols=60 rows=7 id='risp-$i' name='$i' required>";
+				echo (isset($old['testo']) ? $old['testo'] : '') . "</textarea> ";
 
 				// se è a risposta multipla mostro un checkbox per la correttezza della risposta,
 				// se invece è un testo bucato chiedo un numero per l'ordine delle risposte nel testo
 				if ($tipo == 0) {
 					echo "<br> <label for='chkbox-$i'> Corretta </label>";
 					echo "<input type='checkbox' id='chkbox-$i' name='risp-$i-corretta'";
-					echo ($old['correzzione'] == 1 ? 'chechked' : '') . "><br>";
+					echo (isset($old['correzione']) and $old['correzione']) ? 'checked' : '';
+					echo "><br>";
 				} else {
 					echo "<br> <input type='number' min=1 value='$i' name='risp-$i-corretta' value='{$old['correzzione']}' > <br>";
 				}
 
 				// e nascondo la vecchia immagine
-				echo "<label for='img'> Immagine relativa </label>";
-				echo "<input type='hidden' name='img-$i' value='{$old['img_url']}'>";
-				echo "<input type='file' name='immagine-$i' id='img' accept='image/*'>";
+
+				echo "<input type='hidden' name='img-$i' value='";
+				echo isset($old["img_url"]) ? $old["img_url"] : '';
+				echo "'>";
+
+				echo "<div onclick='click_image_id($i)'>";
+
+				echo "<label for='img'> Immagine relativa </label> <br>";
+				echo "<img src='/";
+				echo isset($old["img_url"]) ? $old["img_url"] : '';
+				echo "' style='max-height: 100px; max-width: 100px' alt='immagine inserita' id='img_show-$i'>";
+
+				echo "</div>";
+				echo "<input type='file' name='immagine-$i' id='image_selector-$i' oninput='show_img_id($i)' accept='image/*'>";
 				echo "<br><br>";
 
 				echo "</div>";
@@ -90,6 +103,23 @@ if ($tipo == 2) {
 		<input type="submit" value="Invia">
 	</form>
 
+	<script src="img_manager.js" crossorigin="anonymous"></script>
+	<script>
+		// gestisce le risposte senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
+		document.addEventListener("DOMContentLoaded", function(event) {
+			document.querySelectorAll("img").forEach(function(img) {
+				img.onerror = function() {
+					this.style.display = "none";
+				};
+			});
+		});
+
+		var loop = document.getElementById("n-risposte").value;
+
+		for (let i = 0; i < loop; i++) {
+			fix_default_img_id(i);
+		}
+	</script>
 
 </body>
 

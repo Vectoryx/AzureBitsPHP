@@ -43,7 +43,7 @@
 		<br>
 		<!-- Da usare label per prompt -->
 		Testo della domanda <br>
-		<textarea name="testo" cols=50 rows=10 required> </textarea> <br><br>
+		<textarea name="testo" cols=50 rows=10 required></textarea> <br><br>
 		<!-- definisco un div per poter mostrare e nascondere sia il testo che l'input
 			fornisco un metodo veloce per rispondere alle domande vero o falso -->
 		<div id="Vero" hidden>
@@ -52,7 +52,11 @@
 		</div>
 
 		Punti da assegnare alla domanda <input type="number" value="1" name="punteggio" min="0" required> <br><br>
-		immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
+		<div onclick="click_image()">
+			immagine relativa
+			<img style="max-height: 100px; max-width: 100px" src="/" alt="immagina inserita" id="img_show">
+		</div>
+		<input type="file" name="immagine" accept="image/*" id="image_selector" oninput="show_img()"><br><br>
 
 		<label for="tipo"> Tipo di domanda </label>
 		<select name="selezione-tipo" id="tipo" onchange="change()">
@@ -68,6 +72,7 @@
 
 		<input type="submit" value="Invia">
 	</form>
+
 	<?php
 
 	echo "<pre>";
@@ -81,7 +86,7 @@
 
 		echo "<div>";
 		echo "<a href='modifica_domande.php?id={$row['ID']}'>{$row['testo']}</a>";
-		echo "<img src='/{$row['img_url']}' alt='' style='width: 40px; height: 40px' />";
+		echo "<img src='/{$row['img_url']}' alt='' style='max-width: 40px; max-height: 40px' />";
 		echo "</div>";
 	}
 
@@ -89,14 +94,15 @@
 
 	?>
 
+	<script src="img_manager.js" crossorigin="anonymous"></script>
 	<script>
 		// gestisce domande senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
 		document.addEventListener("DOMContentLoaded", function(event) {
-			document.querySelectorAll('img').forEach(function(img) {
+			document.querySelectorAll("img").forEach(function(img) {
 				img.onerror = function() {
-					this.style.display = 'none';
+					this.style.display = "none";
 				};
-			})
+			});
 		});
 
 		/**

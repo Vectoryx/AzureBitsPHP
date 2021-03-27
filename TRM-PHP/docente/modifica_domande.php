@@ -57,8 +57,15 @@
 			<textarea name="testo" cols=50 rows=10><?php echo $old['testo'] ?></textarea> <br><br>
 			Punti da assegnare alla domanda <input type="number" value="<?php echo $old['punteggio'] ?>" name="punteggio" min="0"> <br><br> <!-- inserisco il vecchio unteggio -->
 
-			<input type="hidden" name="img" value="<?php echo $old['img_url'] ?>"> <!-- non posso mettere un valore all'input file per motivi di sicurezza, quindi mi passo l'url attraverso un input hidden e gestisco quale usare nella pagina successiva -->
-			immagine relativa <input type="file" name="immagine" accept="image/*"> <br><br>
+			<input type="hidden" name="img" value="<?php echo $old['img_url'] ?>">
+			<!-- non posso mettere un valore all'input file per motivi di sicurezza,
+			 quindi mi passo l'url attraverso un input hidden e gestisco quale usare nella pagina successiva -->
+			<div onclick="click_image()">
+				immagine relativa
+				<img style="max-height: 100px; max-width: 100px" src="/<?php echo $old['img_url'] ?>" alt="immagine inserita" id="img_show">
+			</div>
+			<input type="file" name="immagine" accept="image/*" id="image_selector" oninput="show_img()"><br><br>
+
 
 			<label for="tipo"> Tipo di domanda </label>
 			<select name="selezione-tipo" id="tipo" onchange="change()">
@@ -75,5 +82,21 @@
 			<br><br>
 			<input type="submit" value="Invia">
 		</form>
+
+
+		<script src="img_manager.js" crossorigin="anonymous"></script>
+		<script>
+			// gestisce le risposte senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
+			document.addEventListener("DOMContentLoaded", function(event) {
+				document.querySelectorAll("img").forEach(function(img) {
+					img.onerror = function() {
+						this.style.display = "none";
+					};
+				});
+			});
+
+			fix_default_img();
+		</script>
+
 	</div>
 </body>

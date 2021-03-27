@@ -17,7 +17,7 @@ if (isset($creatore) and isset($punteggio) and isset($testo) and isset($tipo)) {
 
 	$query = "INSERT INTO domande  ( testo,    img_url,    punteggio,   tipo,   creatore,   materia)
 							VALUES ('$testo', '$img_url', $punteggio,  $tipo,  $creatore, '$materia');";
-	mysqli_query($conn, $query);
+	// mysqli_query($conn, $query);
 	move_uploaded_file($_FILES["immagine"]["tmp_name"], "../images/" . $_FILES["immagine"]["name"]);
 }
 
@@ -68,8 +68,9 @@ if ($tipo == 2) {
 				}
 
 				// e chiedo l'immagine
-				echo "<label for='img'> Immagine relativa </label>";
-				echo "<input type='file' name='immagine-$i' id='img' accept='image/*'>";
+				echo "<div onclick='click_image_id($i)'> Immagine relativa";
+				echo "<img style='max-height: 100px; max-width: 100px' src='/' alt='immagina inserita' id='img_show-$i'> </div>";
+				echo "<input type='file' name='immagine-$i' id='image_selector-$i' accept='image/*' oninput='show_img_id($i)'>";
 				echo "<br><br>";
 
 				echo "</div>";
@@ -79,6 +80,18 @@ if ($tipo == 2) {
 		?>
 		<input type="submit" value="Invia">
 	</form>
+
+	<script src="img_manager.js" crossorigin="anonymous"></script>
+	<script>
+		// gestisce le risposte senza le immagine togliendole, questo per evitare di vedere il simbolo di immagine mancante
+		document.addEventListener("DOMContentLoaded", function(event) {
+			document.querySelectorAll("img").forEach(function(img) {
+				img.onerror = function() {
+					this.style.display = "none";
+				};
+			});
+		});
+	</script>
 
 </body>
 
